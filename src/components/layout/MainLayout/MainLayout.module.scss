@@ -1,4 +1,10 @@
-@import '../../../styles/settings.scss';
+@import "../../../styles/settings.scss";
 
-// .root {
-// }
+.root {
+  .container {
+    margin: 0.7rem auto;
+    padding: 1rem;
+    max-width: 1040px;
+    min-height: 100vh;
+  }
+}

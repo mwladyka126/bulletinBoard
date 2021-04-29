@@ -39,6 +39,7 @@
     "quotes": [
       "error",
       "single",
+      2,
       {"allowTemplateLiterals": true}
     ],
     "semi": [

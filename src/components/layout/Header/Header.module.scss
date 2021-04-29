@@ -1,4 +1,12 @@
-@import '../../../styles/settings.scss';
+@import "../../../styles/settings.scss";
 
-// .root {
-// }
+.root {
+  .toolbar {
+    justify-content: space-between;
+    background-color: orangered;
+    .link {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
