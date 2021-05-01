@@ -3,10 +3,12 @@
 .root {
   .toolbar {
     justify-content: space-between;
-    background-color: orangered;
     .link {
       text-decoration: none;
-      color: white;
+      color: #fff;
+    }
+    .login {
+      color: #fff;
     }
   }
 }

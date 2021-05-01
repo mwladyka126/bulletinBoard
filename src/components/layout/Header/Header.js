@@ -8,41 +8,36 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import Container from "@material-ui/core/Container";
 
-// import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+import { connect } from "react-redux";
+import { getStatus } from "../../../redux/usersRedux.js";
 
 import styles from "./Header.module.scss";
 
-const Component = ({ className, children }) => {
-  const [user, setUser] = useState(false);
-
+const Component = ({ className, children, userStatus }) => {
   return (
     <div className={clsx(className, styles.root)}>
       <AppBar position="static">
-        <Toolbar className={styles.toolbar}>
-          <Typography variant="h6">
-            <Link
-              to={"/"}
-              className={styles.link}
-              onClick={() => setUser(!user)}
+        <Container maxWidth="xl">
+          <Toolbar className={styles.toolbar}>
+            <Typography variant="h6">
+              <Link to={"/"} className={styles.link}>
+                Bulletin Board
+              </Link>
+            </Typography>
+            <Button
+              color="inherit"
+              className={styles.login}
+              href="https://google.com"
             >
-              Bulletin Board
-            </Link>
-          </Typography>
-          <Button
-            color="inherit"
-            className={styles.login}
-            onClick={() => setUser(!user)}
-          >
-            Login
-          </Button>
-        </Toolbar>
+              Login
+            </Button>
+          </Toolbar>
+        </Container>
       </AppBar>
-      <div>
-        {user === true ? (
+      <Container>
+        {userStatus === true ? (
           <>
             <Typography variant="h6">
               <Link to={"/"} className={styles.link}>
@@ -58,7 +53,7 @@ const Component = ({ className, children }) => {
             Login
           </Button>
         )}
-      </div>
+      </Container>
       {children}
     </div>
   );
@@ -69,18 +64,14 @@ Component.propTypes = {
   className: PropTypes.string,
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
+const mapStateToProps = (state) => ({
+  userStatus: getStatus(state),
+});
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
-
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const ContainerH = connect(mapStateToProps)(Component);
 
 export {
-  Component as Header,
-  // Container as Header,
+  //Component as Header,
+  ContainerH as Header,
   Component as HeaderComponent,
 };
