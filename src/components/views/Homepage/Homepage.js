@@ -53,6 +53,20 @@ const Component = ({ className, children, posts, userStatus }) => {
   };
   return (
     <div className={clsx(className, styles.root)}>
+      {userStatus === true ? (
+        <div className={styles.buttonAdd}>
+          <Link to={"/post/add"} variant="subtitle1" color="secondary">
+            <Fab
+              size="small"
+              color="secondary"
+              aria-label="add"
+              variant="extended"
+            >
+              Add new add
+            </Fab>
+          </Link>
+        </div>
+      ) : null}
       {posts.map((post) => (
         <Paper className={styles.component} elevation={9}>
           <Grid container spacing={3} alignContent="center" justify="center">
@@ -138,6 +152,8 @@ const Component = ({ className, children, posts, userStatus }) => {
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  userStatus: PropTypes.string,
+  posts: PropTypes.array,
 };
 const mapStateToProps = (state) => ({
   posts: getAll(state),

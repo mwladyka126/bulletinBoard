@@ -26,34 +26,37 @@ const Component = ({ className, children, userStatus }) => {
                 Bulletin Board
               </Link>
             </Typography>
-            <Button
-              color="inherit"
-              className={styles.login}
-              href="https://google.com"
-            >
-              Login
-            </Button>
+            {userStatus === true ? (
+              <>
+                <Typography variant="h6">
+                  <Link to={"/"} className={styles.link}>
+                    LIST OF YOURS ADDS
+                  </Link>
+                </Typography>
+                <Button
+                  color="inherit"
+                  variant="outlined"
+                  component={Link}
+                  className={styles.login}
+                  to={"/"}
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Button
+                color="inherit"
+                variant="outlined"
+                href="https://google.com"
+                className={styles.login}
+              >
+                Login
+              </Button>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
-      <Container>
-        {userStatus === true ? (
-          <>
-            <Typography variant="h6">
-              <Link to={"/"} className={styles.link}>
-                LIST OF YOURS ADDS
-              </Link>
-            </Typography>
-            <Button color="inherit" variant="outlined">
-              Logout
-            </Button>
-          </>
-        ) : (
-          <Button color="inherit" variant="outlined">
-            Login
-          </Button>
-        )}
-      </Container>
+
       {children}
     </div>
   );

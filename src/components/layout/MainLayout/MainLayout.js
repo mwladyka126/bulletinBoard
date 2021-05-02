@@ -13,9 +13,9 @@ import { Switcher } from "../../common/Switcher/Switcher";
 
 const Component = ({ className, children }) => (
   <div className={clsx(className, styles.root)}>
-    <div>
-      <Switcher />
-      <Header />
+    <div className={styles.container}>
+      <Switcher className={styles.switcher} />
+      <Header className={styles.header} />
 
       {children}
     </div>
