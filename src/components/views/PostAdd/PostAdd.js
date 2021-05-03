@@ -57,38 +57,46 @@ class Component extends React.Component {
     const { addNewPost } = this.props;
     e.preventDefault();
 
-    //let error = null;
+    let error = null;
     const emailPattern = /\S+@\S+\.\S+/;
 
-    if (!post.title.length < 10 || !post.text.length < 20) {
-      alert("The title or/and the content is/are too short");
+    if (post.title.length < 10) {
+      alert("The title is too short");
+      error = "text too short";
+    } else if (post.text.length < 20) {
+      alert("The content is too short");
+      error = "text too short";
     } else if (!emailPattern.test(post.author)) {
       alert("Your email adress is not valid!");
+      error = "wrong email";
     }
+    if (!error) {
+      post.created = new Date().toISOString();
+      post.updated = post.created;
+      post.id = Math.random().toString(36).substr(2, 5);
 
-    post.created = new Date().toISOString();
-    post.updated = post.created;
-    post.id = Math.random().toString(36).substr(2, 5);
+      addNewPost(post);
+      console.log("add", addNewPost(post));
 
-    addNewPost(post);
-    console.log("add", addNewPost());
-
-    this.setState({
-      post: {
-        id: "",
-        author: "",
-        created: "",
-        updated: "",
-        status: "",
-        title: "",
-        text: "",
-        photo: "",
-        price: "",
-        phone: "",
-        location: "",
-      },
-    });
-    alert("Thank you for your add!");
+      this.setState({
+        post: {
+          id: "",
+          author: "",
+          created: "",
+          updated: "",
+          status: "",
+          title: "",
+          text: "",
+          photo: "",
+          price: "",
+          phone: "",
+          location: "",
+        },
+      });
+      alert("Thank you for your add!");
+    } else {
+      alert("you left some empty fields");
+    }
   };
   render() {
     const { className, userStatus } = this.props;
