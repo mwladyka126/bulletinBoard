@@ -5,9 +5,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-import styles from "./Switcher.module.scss";
+//import styles from "./Switcher.module.scss";
 import { connect } from "react-redux";
-import { getStatus, getUserStatus } from "../../../redux/usersRedux.js";
+import { getUserStatus } from "../../../redux/usersRedux.js";
 
 class Component extends React.Component {
   state = {
@@ -29,7 +29,6 @@ class Component extends React.Component {
     }
   };
   render() {
-    const { className } = this.props;
     return (
       <FormControl>
         <InputLabel id="user-status">User Status</InputLabel>

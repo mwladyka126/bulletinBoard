@@ -15,16 +15,13 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 
@@ -68,7 +65,7 @@ const Component = ({ className, children, posts, userStatus }) => {
         </div>
       ) : null}
       {posts.map((post) => (
-        <Paper className={styles.component} elevation={9}>
+        <Paper key={post.id} className={styles.component} elevation={9}>
           <Grid container spacing={3} alignContent="center" justify="center">
             <Grid item xs={12} sm={5}>
               <div className={styles.photoWrapper}>
@@ -152,7 +149,7 @@ const Component = ({ className, children, posts, userStatus }) => {
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  userStatus: PropTypes.string,
+  userStatus: PropTypes.bool,
   posts: PropTypes.array,
 };
 const mapStateToProps = (state) => ({

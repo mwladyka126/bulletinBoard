@@ -9,7 +9,6 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -17,157 +16,223 @@ import ImageUploader from "react-images-upload";
 
 import { connect } from "react-redux";
 import { getStatus } from "../../../redux/usersRedux.js";
+import { addPost } from "../../../redux/postsRedux.js";
 import styles from "./PostAdd.module.scss";
 import { NotFound } from "../NotFound/NotFound.js";
 
-const Component = ({ className, children, userStatus }) => {
-  return (
-    <div className={clsx(className, styles.root)}>
-      {userStatus === true ? (
-        <Grid container align="center" justify="center">
-          <Grid item align="center" xs={12} sm={9}>
-            <Paper>
-              <form>
-                <Typography variant="h6">
-                  Fill the fields to add an announcement
-                </Typography>
+class Component extends React.Component {
+  state = {
+    post: {
+      id: "",
+      author: "",
+      created: "",
+      updated: "",
+      status: "",
+      title: "",
+      text: "",
+      photo: null,
+      price: "",
+      phone: "",
+      location: "",
+    },
+    error: null,
+  };
+  setPhoto = (files) => {
+    const { post } = this.state;
 
-                <Grid item align="center" xs={12} sm={9}>
-                  <TextField
-                    required
-                    name="title"
-                    label="Title"
-                    variant="filled"
-                    //onChange={this.handleChange}
-                    helperText="min. 10 characters"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item align="center" xs={12} sm={9}>
-                  <TextField
-                    required
-                    name="Description"
-                    label="Give the full description!"
-                    variant="filled"
-                    //onChange={this.handleChange}
-                    helperText="min. 20 characters"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item align="center" xs={12} sm={9}>
-                  <TextField
-                    required
-                    name="Email"
-                    label="Your Email"
-                    variant="filled"
-                    //onChange={this.handleChange}
-                    helperText="Put your vaild email"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item align="center" xs={12} sm={9}>
-                  <TextField
-                    required
-                    name="Location"
-                    label="Location"
-                    variant="filled"
-                    //onChange={this.handleChange}
-                    helperText="Location"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item align="center" xs={12} sm={9}>
-                  <TextField
-                    required
-                    name="Price"
-                    label="Price"
-                    variant="filled"
-                    //onChange={this.handleChange}
-                    helperText="Price in EUR"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item align="center" xs={12} sm={9}>
-                  <TextField
-                    required
-                    name="Phone"
-                    label="Phone number"
-                    variant="filled"
-                    //onChange={this.handleChange}
-                    helperText="Give you contact number"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item align="center" xs={12} sm={9}>
-                  <FormControl fullWidth>
-                    <InputLabel id="status">Status of your add</InputLabel>
-                    <Select
-                      labelId="status"
-                      id="status"
-                      //onChange={this.handleChange}
-                      fullWidth
+    if (files) this.setState({ post: { ...post, photo: files[0] } });
+    else this.setState({ post: { ...post, file: null } });
+  };
+
+  handleChange = (event) => {
+    const { post } = this.state;
+
+    this.setState({
+      post: { ...post, [event.target.name]: event.target.value },
+    });
+  };
+
+  submitForm = (e) => {
+    const { post } = this.state;
+    const { addNewPost } = this.props;
+    e.preventDefault();
+
+    //let error = null;
+    const emailPattern = /\S+@\S+\.\S+/;
+
+    if (!post.title.length < 10 || !post.text.length < 20) {
+      alert("The title or/and the content is/are too short");
+    } else if (!emailPattern.test(post.author)) {
+      alert("Your email adress is not valid!");
+    }
+
+    post.created = new Date().toISOString();
+    post.updated = post.created;
+    post.id = Math.random().toString(36).substr(2, 5);
+
+    addNewPost(post);
+    console.log("add", addNewPost());
+
+    this.setState({
+      post: {
+        id: "",
+        author: "",
+        created: "",
+        updated: "",
+        status: "",
+        title: "",
+        text: "",
+        photo: "",
+        price: "",
+        phone: "",
+        location: "",
+      },
+    });
+    alert("Thank you for your add!");
+  };
+  render() {
+    const { className, userStatus } = this.props;
+    const { post } = this.state;
+    return (
+      <div className={clsx(className, styles.root)}>
+        {userStatus === true ? (
+          <Grid container align="center" justify="center">
+            <Grid item align="center" xs={12} sm={9}>
+              <Paper>
+                <form onSubmit={this.submitForm}>
+                  <Typography variant="h6">
+                    Fill the fields to add an announcement
+                  </Typography>
+
+                  <Grid item align="center" xs={12} sm={9}>
+                    <TextField
+                      required
+                      name="title"
+                      label="Title"
                       variant="filled"
-                    >
-                      <MenuItem value="draft">Draft</MenuItem>
-                      <MenuItem value="published">Published</MenuItem>
-                      <MenuItem value="closed">Closed</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={9} className={styles.paperCard__item}>
-                  <Typography align="center">Add photo</Typography>
-                  <ImageUploader
-                    withIcon={true}
-                    buttonText="Choose image"
-                    imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                    maxFileSize={5242880}
-                    withPreview={true}
-                    //onChange={this.handleImage}
-                    singleImage={true}
-                    className={styles.file}
-                  />
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  sm={9}
-                  className={styles.paperCard__item}
-                  align="center"
-                >
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    color="secondary"
-                    className={styles.paperCard__btn}
-                  >
-                    Submit
-                  </Button>
-                </Grid>
-              </form>
-            </Paper>
+                      onChange={this.handleChange}
+                      helperText="min. 10 characters"
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item align="center" xs={12} sm={9}>
+                    <TextField
+                      required
+                      name="text"
+                      label="Give the full description!"
+                      variant="filled"
+                      onChange={this.handleChange}
+                      helperText="min. 20 characters"
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item align="center" xs={12} sm={9}>
+                    <TextField
+                      required
+                      name="author"
+                      label="Your Email"
+                      variant="filled"
+                      onChange={this.handleChange}
+                      helperText="Put your vaild email"
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item align="center" xs={12} sm={9}>
+                    <TextField
+                      required
+                      name="location"
+                      label="Location"
+                      variant="filled"
+                      onChange={this.handleChange}
+                      helperText="Location"
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item align="center" xs={12} sm={9}>
+                    <TextField
+                      required
+                      name="price"
+                      label="Price"
+                      variant="filled"
+                      onChange={this.handleChange}
+                      helperText="Price in EUR"
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item align="center" xs={12} sm={9}>
+                    <TextField
+                      required
+                      name="phone"
+                      label="Phone number"
+                      variant="filled"
+                      onChange={this.handleChange}
+                      helperText="Give you contact number"
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item align="center" xs={12} sm={9}>
+                    <FormControl fullWidth>
+                      <InputLabel id="status">Status of your add</InputLabel>
+                      <Select
+                        labelId="status"
+                        id="status"
+                        onChange={this.handleChange}
+                        fullWidth
+                        variant="filled"
+                        name="status"
+                        value={post.status}
+                      >
+                        <MenuItem value="draft">draft</MenuItem>
+                        <MenuItem value="published">published</MenuItem>
+                        <MenuItem value="closed">closed</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} sm={9} className={styles.paperCard__item}>
+                    <Typography align="center">Add photo</Typography>
+                    <ImageUploader
+                      withIcon={true}
+                      buttonText="Choose image"
+                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                      maxFileSize={5242880}
+                      withPreview={true}
+                      onChange={this.setPhoto}
+                      singleImage={true}
+                      className={styles.file}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={9} align="center">
+                    <Button variant="contained" type="submit" color="secondary">
+                      Submit
+                    </Button>
+                  </Grid>
+                </form>
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
-      ) : (
-        <NotFound />
-      )}
-    </div>
-  );
-};
+        ) : (
+          <NotFound />
+        )}
+      </div>
+    );
+  }
+}
 
 Component.propTypes = {
-  children: PropTypes.node,
   className: PropTypes.string,
+  userStatus: PropTypes.bool,
+  addNewPost: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
   userStatus: getStatus(state),
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = (dispatch) => ({
+  addNewPost: (post) => dispatch(addPost(post)),
+});
 
-const Container = connect(mapStateToProps)(Component);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
   //Component as PostAdd,

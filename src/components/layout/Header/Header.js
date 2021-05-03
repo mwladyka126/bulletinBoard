@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
@@ -65,6 +65,7 @@ const Component = ({ className, children, userStatus }) => {
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  userStatus: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
