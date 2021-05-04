@@ -18,7 +18,7 @@ import styles from "./Header.module.scss";
 const Component = ({ className, children, userStatus }) => {
   return (
     <div className={clsx(className, styles.root)}>
-      <AppBar position="static">
+      <AppBar position="sticky" className={styles.appbar}>
         <Container maxWidth="xl">
           <Toolbar className={styles.toolbar}>
             <Typography variant="h6">

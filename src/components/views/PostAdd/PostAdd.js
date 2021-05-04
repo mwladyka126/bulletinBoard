@@ -35,7 +35,7 @@ class Component extends React.Component {
       phone: "",
       location: "",
     },
-    error: { title: "", text: "", email: "" },
+    error: null,
   };
   setPhoto = (files) => {
     const { post } = this.state;
@@ -53,30 +53,30 @@ class Component extends React.Component {
   };
 
   submitForm = (e) => {
-    const { post, error } = this.state;
+    const { post } = this.state;
     const { addNewPost } = this.props;
     e.preventDefault();
 
+    let error = null;
     const emailPattern = /\S+@\S+\.\S+/;
 
     if (post.title.length < 10) {
       alert("The title is too short");
-      this.setState({ error: { ...error, title: "text too short" } });
+      error = "text too short";
     } else if (post.text.length < 20) {
       alert("The content is too short");
-      this.setState({ error: { ...error, text: "text too short" } });
+      error = "text too short";
     } else if (!emailPattern.test(post.author)) {
       alert("Your email adress is not valid!");
-      this.setState({ error: { ...error, email: "invalid" } });
+      error = "wrong email";
     }
-    if (!error.title && !error.text && !error.email) {
+    if (!error) {
       post.created = new Date().toISOString();
       post.updated = post.created;
       post.id = Math.random().toString(36).substr(2, 5);
 
       addNewPost(post);
       console.log("add", addNewPost(post));
-      console.log(this.state.error);
 
       this.setState({
         post: {
@@ -92,16 +92,15 @@ class Component extends React.Component {
           phone: "",
           location: "",
         },
-        error: { title: "", text: "", email: "" },
       });
       alert("Thank you for your add!");
     } else {
-      alert("you left some empty fields");
+      alert("Please correct errors before submitting your add!");
     }
   };
   render() {
     const { className, userStatus } = this.props;
-    const { post, error } = this.state;
+    const { post } = this.state;
     return (
       <div className={clsx(className, styles.root)}>
         {userStatus === true ? (
@@ -123,7 +122,6 @@ class Component extends React.Component {
                       helperText="min. 10 characters"
                       fullWidth
                     />
-                    <span>{error.title ? error.title : null}</span>
                   </Grid>
                   <Grid item align="center" xs={12} sm={9}>
                     <TextField
@@ -135,7 +133,6 @@ class Component extends React.Component {
                       helperText="min. 20 characters"
                       fullWidth
                     />
-                    <span>{error.text ? error.text : null}</span>
                   </Grid>
                   <Grid item align="center" xs={12} sm={9}>
                     <TextField
@@ -147,7 +144,6 @@ class Component extends React.Component {
                       helperText="Put your vaild email"
                       fullWidth
                     />
-                    <span>{error.email ? error.email : null}</span>
                   </Grid>
                   <Grid item align="center" xs={12} sm={9}>
                     <TextField

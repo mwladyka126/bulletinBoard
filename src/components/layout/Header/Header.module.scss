@@ -1,14 +1,17 @@
 @import "../../../styles/settings.scss";
 
 .root {
-  .toolbar {
-    justify-content: space-between;
-    .link {
-      text-decoration: none;
-      color: #fff;
-    }
-    .login {
-      color: #fff;
+  .appbar {
+    margin-bottom: $base-size;
+    .toolbar {
+      justify-content: space-between;
+      .link {
+        text-decoration: none;
+        color: $color-white;
+      }
+      .login {
+        color: $color-white;
+      }
     }
   }
 }
