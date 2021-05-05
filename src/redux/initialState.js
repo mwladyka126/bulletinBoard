@@ -1,8 +1,8 @@
 export const initialState = {
   posts: {
     data: [
-      {
-        id: "1a",
+      /*  {
+        _id: "1a",
         author: "the.admin@example.com",
         created: "2019-01-01",
         updated: "2019-01-01",
@@ -15,7 +15,7 @@ export const initialState = {
         location: "Berlin",
       },
       {
-        id: "2a",
+        _id: "2a",
         author: "user123@example.com",
         created: "2019-01-05",
         updated: "2019-01-05",
@@ -28,7 +28,7 @@ export const initialState = {
         location: null,
       },
       {
-        id: "3a",
+        _id: "3a",
         author: "the.admin@example.com",
         created: "2019-01-01",
         updated: "2019-01-01",
@@ -41,7 +41,7 @@ export const initialState = {
         location: null,
       },
       {
-        id: "4a",
+        _id: "4a",
         author: "user123@example.com",
         created: "2019-01-05",
         updated: "2019-01-05",
@@ -52,12 +52,13 @@ export const initialState = {
         price: 77,
         phone: "777777777888888888",
         location: null,
-      },
+      }, */
     ],
     loading: {
       active: false,
       error: false,
     },
+    onePost: {},
   },
   user: {
     active: true,

@@ -78,7 +78,7 @@ const Component = ({ className, children, post, userStatus }) => {
                 {userStatus === true ? (
                   <div className={styles.linkWrapper}>
                     <Link
-                      to={`/post/${post.id}/edit`}
+                      to={`/post/${post._id}/edit`}
                       variant="subtitle1"
                       color="secondary"
                     >
@@ -132,7 +132,7 @@ Component.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
-  post: getPostById(state, props.match.params.id),
+  post: getPostById(state, props.match.params._id),
   userStatus: getStatus(state),
 });
 

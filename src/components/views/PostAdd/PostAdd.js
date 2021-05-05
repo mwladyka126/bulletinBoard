@@ -23,7 +23,7 @@ import { NotFound } from "../NotFound/NotFound.js";
 class Component extends React.Component {
   state = {
     post: {
-      id: "",
+      _id: "",
       author: "",
       created: "",
       updated: "",
@@ -73,14 +73,14 @@ class Component extends React.Component {
     if (!error) {
       post.created = new Date().toISOString();
       post.updated = post.created;
-      post.id = Math.random().toString(36).substr(2, 5);
+      post._id = Math.random().toString(36).substr(2, 5);
 
       addNewPost(post);
       console.log("add", addNewPost(post));
 
       this.setState({
         post: {
-          id: "",
+          _id: "",
           author: "",
           created: "",
           updated: "",

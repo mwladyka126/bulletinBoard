@@ -24,7 +24,7 @@ import { NotFound } from "../NotFound/NotFound.js";
 class Component extends React.Component {
   state = {
     post: {
-      id: "",
+      _id: "",
       author: "",
       created: "",
       updated: "",
@@ -41,11 +41,12 @@ class Component extends React.Component {
 
   componentWillMount() {
     const { postToEdit } = this.props;
+    console.log(postToEdit);
     const { post } = this.state;
     this.setState({
       post: {
         ...post,
-        id: postToEdit.id,
+        _id: postToEdit._id,
         author: postToEdit.author,
         created: postToEdit.created,
         updated: postToEdit.updated,
@@ -95,13 +96,13 @@ class Component extends React.Component {
     if (!error) {
       post.created = new Date().toISOString();
       post.updated = post.created;
-      post.id = Math.random().toString(36).substr(2, 5);
+      post._id = Math.random().toString(36).substr(2, 5);
 
       updatePost(post);
 
       this.setState({
         post: {
-          id: "",
+          _id: "",
           author: "",
           created: "",
           updated: "",
@@ -262,7 +263,7 @@ Component.propTypes = {
 
 const mapStateToProps = (state, props) => ({
   userStatus: getStatus(state),
-  postToEdit: getPostById(state, props.match.params.id),
+  postToEdit: getPostById(state, props.match.params._id),
 });
 
 const mapDispatchToProps = (dispatch) => ({
