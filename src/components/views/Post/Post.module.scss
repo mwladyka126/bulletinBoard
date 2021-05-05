@@ -16,12 +16,13 @@
       a {
         text-decoration: none;
         margin: 0 auto;
-        padding-bottom: $base-size;
-
         &:hover {
           text-decoration: none;
         }
       }
+    }
+    .fab {
+      color: $color-white;
     }
   }
 }

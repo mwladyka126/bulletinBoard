@@ -9,8 +9,7 @@ export const initialState = {
         status: "published",
         title: "Welcome to our bulletin board!",
         text: "Email me to register and get an account!",
-        photo:
-          "https://www.happybeds.co.uk/media/catalog/product/cache/2760f187cb7d1bcdeca5818f247800d3/f/e/fenton_grey_ottoman_2.jpg",
+        photo: "https://placeimg.com/640/300/9",
         price: 35,
         phone: "556777799",
         location: "Berlin",
@@ -23,8 +22,7 @@ export const initialState = {
         status: "published",
         title: "Room for rent",
         text: "I have a spare room for rent. Low price!",
-        photo:
-          "https://www.happybeds.co.uk/media/catalog/product/cache/2760f187cb7d1bcdeca5818f247800d3/f/e/fenton_grey_ottoman_2.jpg",
+        photo: "https://placeimg.com/640/300/3",
         price: 77,
         phone: "666666666666666666",
         location: null,
@@ -37,8 +35,7 @@ export const initialState = {
         status: "draft",
         title: "Welcome to our bulletin board!",
         text: "Email me to register and get an account!",
-        photo:
-          "https://www.happybeds.co.uk/media/catalog/product/cache/2760f187cb7d1bcdeca5818f247800d3/f/e/fenton_grey_ottoman_2.jpg",
+        photo: "https://placeimg.com/640/300/5",
         price: 35,
         phone: "7890-5555",
         location: null,
@@ -51,8 +48,7 @@ export const initialState = {
         status: "closed",
         title: "Room for rent",
         text: "I have a spare room for rent. Low price!",
-        photo:
-          "https://www.happybeds.co.uk/media/catalog/product/cache/2760f187cb7d1bcdeca5818f247800d3/f/e/fenton_grey_ottoman_2.jpg",
+        photo: "https://placeimg.com/640/300/4",
         price: 77,
         phone: "777777777888888888",
         location: null,

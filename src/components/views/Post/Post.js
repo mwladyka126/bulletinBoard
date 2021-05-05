@@ -68,15 +68,33 @@ const Component = ({ className, children, post, userStatus }) => {
                   {post.text}
                 </Typography>
               </CardContent>
-              <CardActions disableSpacing>
+              <CardActions>
                 <IconButton aria-label="add to favorites">
                   <FavoriteIcon />
                 </IconButton>
                 <IconButton aria-label="share">
                   <ShareIcon />
                 </IconButton>
+                {userStatus === true ? (
+                  <div className={styles.linkWrapper}>
+                    <Link
+                      to={`/post/${post.id}/edit`}
+                      variant="subtitle1"
+                      color="secondary"
+                    >
+                      <Fab
+                        size="small"
+                        color="secondary"
+                        aria-label="add"
+                        variant="extended"
+                      >
+                        Edit post
+                      </Fab>
+                    </Link>
+                  </div>
+                ) : null}
                 <Fab
-                  className={clsx(classes.expand, {
+                  className={clsx(styles.fab, classes.expand, {
                     [classes.expandOpen]: expanded,
                   })}
                   onClick={handleExpandClick}
@@ -100,24 +118,6 @@ const Component = ({ className, children, post, userStatus }) => {
                   <Typography>Location:{post.location}</Typography>
                 </CardContent>
               </Collapse>
-              {userStatus === true ? (
-                <div className={styles.linkWrapper}>
-                  <Link
-                    to={`/post/${post.id}/edit`}
-                    variant="subtitle1"
-                    color="secondary"
-                  >
-                    <Fab
-                      size="small"
-                      color="secondary"
-                      aria-label="add"
-                      variant="extended"
-                    >
-                      Edit post
-                    </Fab>
-                  </Link>
-                </div>
-              ) : null}
             </Card>
           </Grid>
         </Grid>
