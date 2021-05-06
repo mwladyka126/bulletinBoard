@@ -1,6 +1,7 @@
 import Axios from "axios";
 /* selectors */
 export const getAll = ({ posts }) => posts.data;
+export const getOne = ({ posts }) => posts.onePost;
 export const getPostById = ({ posts }, _id) => {
   return posts.data.filter((post) => post._id === _id)[0];
 };
@@ -17,6 +18,7 @@ const FETCH_SUCCESS = createActionName("FETCH_SUCCESS");
 const FETCH_ERROR = createActionName("FETCH_ERROR");
 const ADD_POST = createActionName("ADD_POST");
 const EDIT_POST = createActionName("EDIT_POST");
+const FETCH_ONE_POST = createActionName("FETCH_ONE_POST");
 
 /* action creators */
 export const fetchStarted = (payload) => ({ payload, type: FETCH_START });
@@ -24,6 +26,7 @@ export const fetchSuccess = (payload) => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = (payload) => ({ payload, type: FETCH_ERROR });
 export const addPost = (payload) => ({ payload, type: ADD_POST });
 export const editPost = (payload) => ({ payload, type: EDIT_POST });
+export const fetchOnePost = (payload) => ({ payload, type: FETCH_ONE_POST });
 
 /* thunk creators */
 export const fetchPublished = () => {
@@ -40,6 +43,19 @@ export const fetchPublished = () => {
           dispatch(fetchError(err.message || true));
         });
     }
+  };
+};
+
+export const fetchOnePostFromAPI = (_id) => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+    Axios.get(`http://localhost:8000/api/posts${_id}`)
+      .then((res) => {
+        dispatch(fetchOnePost(res.data));
+      })
+      .catch((err) => {
+        dispatch(fetchError(err.message || true));
+      });
   };
 };
 
@@ -88,6 +104,16 @@ export const reducer = (statePart = [], action = {}) => {
             post._id === action.payload._id ? action.payload : post
           ),
         ],
+      };
+    }
+    case FETCH_ONE_POST: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        onePost: action.payload,
       };
     }
     default:
