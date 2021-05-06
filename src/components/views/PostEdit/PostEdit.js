@@ -16,7 +16,7 @@ import ImageUploader from "react-images-upload";
 
 import { connect } from "react-redux";
 import { getStatus } from "../../../redux/usersRedux.js";
-import { editPost, getPostById } from "../../../redux/postsRedux.js";
+import { editPostRequest, getOne } from "../../../redux/postsRedux.js";
 
 import styles from "./PostEdit.module.scss";
 import { NotFound } from "../NotFound/NotFound.js";
@@ -24,42 +24,21 @@ import { NotFound } from "../NotFound/NotFound.js";
 class Component extends React.Component {
   state = {
     post: {
-      _id: "",
-      author: "",
-      created: "",
-      updated: "",
-      status: "",
-      title: "",
-      text: "",
-      photo: "",
-      price: "",
-      phone: "",
-      location: "",
+      _id: this.props.postToEdit._id,
+      author: this.props.postToEdit.author,
+      created: this.props.postToEdit.created,
+      updated: this.props.postToEdit.updated,
+      status: this.props.postToEdit.status,
+      title: this.props.postToEdit.title,
+      text: this.props.postToEdit.text,
+      photo: this.props.postToEdit.photo,
+      price: this.props.postToEdit.price,
+      phone: this.props.postToEdit.phone,
+      location: this.props.postToEdit.location,
     },
     error: null,
   };
 
-  componentWillMount() {
-    const { postToEdit } = this.props;
-    console.log(postToEdit);
-    const { post } = this.state;
-    this.setState({
-      post: {
-        ...post,
-        _id: postToEdit._id,
-        author: postToEdit.author,
-        created: postToEdit.created,
-        updated: postToEdit.updated,
-        status: postToEdit.status,
-        title: postToEdit.title,
-        text: postToEdit.text,
-        photo: postToEdit.photo,
-        price: postToEdit.price,
-        phone: postToEdit.phone,
-        location: postToEdit.location,
-      },
-    });
-  }
   setPhoto = (files) => {
     const { post } = this.state;
 
@@ -99,6 +78,7 @@ class Component extends React.Component {
       post._id = Math.random().toString(36).substr(2, 5);
 
       updatePost(post);
+      console.log(post);
 
       this.setState({
         post: {
@@ -263,11 +243,11 @@ Component.propTypes = {
 
 const mapStateToProps = (state, props) => ({
   userStatus: getStatus(state),
-  postToEdit: getPostById(state, props.match.params._id),
+  postToEdit: getOne(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  updatePost: (post) => dispatch(editPost(post)),
+const mapDispatchToProps = (dispatch, props) => ({
+  updatePost: (post) => dispatch(editPostRequest(post)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

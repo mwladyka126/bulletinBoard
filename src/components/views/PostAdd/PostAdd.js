@@ -16,7 +16,7 @@ import ImageUploader from "react-images-upload";
 
 import { connect } from "react-redux";
 import { getStatus } from "../../../redux/usersRedux.js";
-import { addPost } from "../../../redux/postsRedux.js";
+import { addPostRequest } from "../../../redux/postsRedux.js";
 import styles from "./PostAdd.module.scss";
 import { NotFound } from "../NotFound/NotFound.js";
 
@@ -76,7 +76,7 @@ class Component extends React.Component {
       post._id = Math.random().toString(36).substr(2, 5);
 
       addNewPost(post);
-      console.log("add", addNewPost(post));
+      console.log("post", post);
 
       this.setState({
         post: {
@@ -237,7 +237,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addNewPost: (post) => dispatch(addPost(post)),
+  //addNewPost: (post) => dispatch(addPost(post)),
+  addNewPost: (post) => dispatch(addPostRequest(post)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

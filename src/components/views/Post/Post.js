@@ -93,7 +93,7 @@ class Component extends React.Component {
                     <ExpandMoreIcon />
                   </Fab>
                 </CardActions>
-                <Collapse in={""} timeout="auto" unmountOnExit>
+                <Collapse in={true} timeout="auto" unmountOnExit>
                   <CardContent>
                     <Typography paragraph> Status: {post.status}</Typography>
                     <Typography paragraph> Price: {post.price}</Typography>
@@ -122,7 +122,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-  fetchPost: () => dispatch(fetchOnePostFromAPI(props.match.params._id)),
+  fetchPost: () => dispatch(fetchOnePostFromAPI(props.match.params.id)),
 });
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 

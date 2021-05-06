@@ -49,9 +49,38 @@ export const fetchPublished = () => {
 export const fetchOnePostFromAPI = (_id) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-    Axios.get(`http://localhost:8000/api/posts${_id}`)
+    Axios.get(`http://localhost:8000/api/posts/${_id}`)
       .then((res) => {
         dispatch(fetchOnePost(res.data));
+      })
+      .catch((err) => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+export const addPostRequest = (data) => {
+  return (dispatch) => {
+    dispatch(fetchStarted());
+    Axios.post("http://localhost:8000/api/posts/add", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((res) => {
+        dispatch(addPost(data));
+      })
+      .catch((err) => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
+export const editPostRequest = (id, data) => {
+  return async (dispatch) => {
+    dispatch(fetchStarted());
+    Axios.put(`http://localhost:8000/api/posts/${id}/edit`, data)
+      .then((res) => {
+        dispatch(editPost(data));
       })
       .catch((err) => {
         dispatch(fetchError(err.message || true));
