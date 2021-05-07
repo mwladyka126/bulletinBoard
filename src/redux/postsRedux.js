@@ -61,6 +61,7 @@ export const fetchOnePostFromAPI = (_id) => {
 export const addPostRequest = (data) => {
   return (dispatch) => {
     dispatch(fetchStarted());
+    console.log("data", data);
     Axios.post("http://localhost:8000/api/posts/add", data, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -120,6 +121,7 @@ export const reducer = (statePart = [], action = {}) => {
       };
     }
     case ADD_POST: {
+      console.log("action.payload", action.payload);
       return {
         ...statePart,
         data: [...statePart.data, action.payload],

@@ -23,7 +23,7 @@ import { NotFound } from "../NotFound/NotFound.js";
 class Component extends React.Component {
   state = {
     post: {
-      _id: "",
+      //_id: "",
       author: "",
       created: "",
       updated: "",
@@ -35,13 +35,12 @@ class Component extends React.Component {
       phone: "",
       location: "",
     },
-    error: null,
   };
   setPhoto = (files) => {
     const { post } = this.state;
 
-    if (files) this.setState({ post: { ...post, photo: files[0] } });
-    else this.setState({ post: { ...post, file: null } });
+    if (files) this.setState({ post: { ...post, photo: files[0].name } });
+    else this.setState({ post: { ...post, photo: null } });
   };
 
   handleChange = (event) => {
@@ -49,6 +48,14 @@ class Component extends React.Component {
 
     this.setState({
       post: { ...post, [event.target.name]: event.target.value },
+    });
+  };
+
+  handlePrice = (event) => {
+    const { post } = this.state;
+
+    this.setState({
+      post: { ...post, [event.target.name]: parseInt(event.target.value) },
     });
   };
 
@@ -66,6 +73,9 @@ class Component extends React.Component {
     } else if (post.text.length < 20) {
       alert("The content is too short");
       error = "text too short";
+    } else if (!post.status) {
+      alert("You have to choose status");
+      error = "text too short";
     } else if (!emailPattern.test(post.author)) {
       alert("Your email adress is not valid!");
       error = "wrong email";
@@ -73,14 +83,14 @@ class Component extends React.Component {
     if (!error) {
       post.created = new Date().toISOString();
       post.updated = post.created;
-      post._id = Math.random().toString(36).substr(2, 5);
+      //  post._id = Math.random().toString(36).substr(2, 5);
 
       addNewPost(post);
       console.log("post", post);
 
       this.setState({
         post: {
-          _id: "",
+          // _id: "",
           author: "",
           created: "",
           updated: "",
@@ -162,7 +172,7 @@ class Component extends React.Component {
                       name="price"
                       label="Price"
                       variant="filled"
-                      onChange={this.handleChange}
+                      onChange={this.handlePrice}
                       helperText="Price in EUR"
                       fullWidth
                     />
@@ -189,6 +199,7 @@ class Component extends React.Component {
                         variant="filled"
                         name="status"
                         value={post.status}
+                        required
                       >
                         <MenuItem value="draft">draft</MenuItem>
                         <MenuItem value="published">published</MenuItem>
@@ -201,7 +212,7 @@ class Component extends React.Component {
                     <ImageUploader
                       withIcon={true}
                       buttonText="Choose image"
-                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                      imgExtension={[".jpg", ".gif", ".png", ".jpeg"]}
                       maxFileSize={5242880}
                       withPreview={true}
                       onChange={this.setPhoto}
