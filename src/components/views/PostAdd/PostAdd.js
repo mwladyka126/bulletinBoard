@@ -88,21 +88,6 @@ class Component extends React.Component {
       addNewPost(post);
       console.log("post", post);
 
-      this.setState({
-        post: {
-          // _id: "",
-          author: "",
-          created: "",
-          updated: "",
-          status: "",
-          title: "",
-          text: "",
-          photo: "",
-          price: "",
-          phone: "",
-          location: "",
-        },
-      });
       alert("Thank you for your add!");
     } else {
       alert("Please correct errors before submitting your add!");
