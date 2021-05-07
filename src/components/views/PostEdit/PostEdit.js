@@ -16,7 +16,11 @@ import ImageUploader from "react-images-upload";
 
 import { connect } from "react-redux";
 import { getStatus } from "../../../redux/usersRedux.js";
-import { editPostRequest, getOne } from "../../../redux/postsRedux.js";
+import {
+  editPostRequest,
+  getOne,
+  fetchOnePostFromAPI,
+} from "../../../redux/postsRedux.js";
 
 import styles from "./PostEdit.module.scss";
 import { NotFound } from "../NotFound/NotFound.js";
@@ -41,9 +45,10 @@ class Component extends React.Component {
 
   setPhoto = (files) => {
     const { post } = this.state;
+    console.log(files[0]);
 
-    if (files) this.setState({ post: { ...post, photo: files[0] } });
-    else this.setState({ post: { ...post, file: null } });
+    if (files) this.setState({ post: { ...post, photo: files[0].name } });
+    else this.setState({ post: { ...post, photo: null } });
   };
 
   handleChange = (event) => {
@@ -207,7 +212,7 @@ class Component extends React.Component {
                     <ImageUploader
                       withIcon={true}
                       buttonText="Choose image"
-                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
+                      imgExtension={[".jpg", ".gif", ".png", ".gif", ".jfif"]}
                       maxFileSize={5242880}
                       withPreview={true}
                       onChange={this.setPhoto}
@@ -246,6 +251,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
   updatePost: (post) => dispatch(editPostRequest(post)),
+  fetchPost: () => dispatch(fetchOnePostFromAPI(props.match.params.id)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
