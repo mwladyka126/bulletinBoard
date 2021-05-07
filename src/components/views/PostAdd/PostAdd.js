@@ -237,7 +237,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  //addNewPost: (post) => dispatch(addPost(post)),
   addNewPost: (post) => dispatch(addPostRequest(post)),
 });
 

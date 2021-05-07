@@ -75,10 +75,10 @@ export const addPostRequest = (data) => {
   };
 };
 
-export const editPostRequest = (id, data) => {
+export const editPostRequest = (data) => {
   return async (dispatch) => {
     dispatch(fetchStarted());
-    Axios.put(`http://localhost:8000/api/posts/${id}/edit`, data)
+    Axios.put(`http://localhost:8000/api/posts/${data._id}/edit`, data)
       .then((res) => {
         dispatch(editPost(data));
       })

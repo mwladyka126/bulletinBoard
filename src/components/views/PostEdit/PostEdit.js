@@ -73,9 +73,7 @@ class Component extends React.Component {
       error = "wrong email";
     }
     if (!error) {
-      post.created = new Date().toISOString();
-      post.updated = post.created;
-      post._id = Math.random().toString(36).substr(2, 5);
+      post.updated = new Date().toISOString();
 
       updatePost(post);
       console.log(post);
