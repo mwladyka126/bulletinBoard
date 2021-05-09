@@ -38,7 +38,7 @@ class Component extends React.Component {
   };
   setPhoto = (files) => {
     const { post } = this.state;
-
+    console.log(files[0]);
     if (files) this.setState({ post: { ...post, photo: files[0].name } });
     else this.setState({ post: { ...post, photo: null } });
   };
