@@ -23,7 +23,6 @@ import { NotFound } from "../NotFound/NotFound.js";
 class Component extends React.Component {
   state = {
     post: {
-      //_id: "",
       author: "",
       created: "",
       updated: "",
@@ -65,7 +64,9 @@ class Component extends React.Component {
     e.preventDefault();
 
     let error = null;
-    const emailPattern = /\S+@\S+\.\S+/;
+    const emailPattern = new RegExp(
+      "^[a-zA-Z0-9][a-zA-Z0-9_.-]+@[a-zA-Z0-9][a-zA-Z0-9_.-]+.{1,3}[a-zA-Z]{2,4}"
+    );
 
     if (post.title.length < 10) {
       alert("The title is too short");
@@ -83,7 +84,6 @@ class Component extends React.Component {
     if (!error) {
       post.created = new Date().toISOString();
       post.updated = post.created;
-      //  post._id = Math.random().toString(36).substr(2, 5);
 
       addNewPost(post);
       console.log("post", post);

@@ -42,7 +42,10 @@ class Component extends React.Component {
     },
     error: null,
   };
-
+  componentDidMount() {
+    this.props.fetchPost();
+    this.setState({ post: { ...this.props.postToEdit } });
+  }
   setPhoto = (files) => {
     const { post } = this.state;
     console.log(files[0]);
@@ -65,7 +68,9 @@ class Component extends React.Component {
     e.preventDefault();
 
     let error = null;
-    const emailPattern = /\S+@\S+\.\S+/;
+    const emailPattern = new RegExp(
+      "^[a-zA-Z0-9][a-zA-Z0-9_.-]+@[a-zA-Z0-9][a-zA-Z0-9_.-]+.{1,3}[a-zA-Z]{2,4}"
+    );
 
     if (post.title.length < 10) {
       alert("The title is too short");
