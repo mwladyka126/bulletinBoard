@@ -12,7 +12,6 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/user/no-permission" }),
   (req, res) => {
     res.redirect("/user/logged");
-    console.log("user", req.user);
   }
 );
 router.get("/logout", (req, res) => {
