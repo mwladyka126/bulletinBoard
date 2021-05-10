@@ -44,7 +44,8 @@ class Component extends React.Component {
   };
   componentDidMount() {
     this.props.fetchPost();
-    this.setState({ post: { ...this.props.postToEdit } });
+
+    //this.setState({ post: { ...this.props.postToEdit } });
   }
   setPhoto = (files) => {
     const { post } = this.state;

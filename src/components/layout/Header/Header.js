@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { AUTH_URL } from "../../../config";
 import { Link } from "react-router-dom";
 
 import clsx from "clsx";
@@ -47,7 +48,7 @@ const Component = ({ className, children, userStatus }) => {
               <Button
                 color="inherit"
                 variant="outlined"
-                href="https://google.com"
+                href={`${AUTH_URL}/google`}
                 className={styles.login}
               >
                 Login
