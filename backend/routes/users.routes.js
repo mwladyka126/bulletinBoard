@@ -24,7 +24,7 @@ router.get("/user/logged", async (req, res) => {
           if (!loggedUser) res.status(404).json({ message: "Not found" });
           else {
             loggedUser.isLogged = true;
-            await loggedUser.save();
+            loggedUser.save();
             return res.redirect("http://localhost:3000/");
           }
         } else {
@@ -58,7 +58,7 @@ router.get("/logout", async (req, res) => {
       else {
         loggedUser.isLogged = false;
         await loggedUser.save();
-        res.logout();
+        req.logout();
         return res.redirect("http://localhost:3000/");
       }
     }

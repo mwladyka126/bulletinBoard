@@ -2,7 +2,7 @@
 export const getStatus = ({ user }) => user.active;
 
 /* action name creator */
-const reducerName = "user";
+const reducerName = "userSwitcher";
 const createActionName = (name) => `app/${reducerName}/${name}`;
 
 /* action types */

@@ -10,7 +10,7 @@ import { reducer as usersReducer } from "./usersRedux";
 // define reducers
 const reducers = {
   posts: postsReducer,
-  userSwitcher: userSwitcherReducer,
+  user: userSwitcherReducer,
   users: usersReducer,
 };
 

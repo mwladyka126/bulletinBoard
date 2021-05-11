@@ -16,7 +16,7 @@ router.get(
 );
 router.get("/logout", (req, res) => {
   req.logout();
-  res.redirect("/");
+  res.redirect("/api/logout");
 });
 
 module.exports = router;
