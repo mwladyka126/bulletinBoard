@@ -60,7 +60,9 @@ export const initialState = {
     },
     onePost: {},
   },
-  users: {},
+  users: {
+    data: [],
+  },
   user: {
     active: true,
   },

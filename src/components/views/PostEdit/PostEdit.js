@@ -30,7 +30,12 @@ class Component extends React.Component {
     post: {},
     error: null,
   };
-
+  componentDidMount() {
+    this.props.fetchPost();
+    this.setState({
+      post: { ...this.props.postToEdit },
+    });
+  }
   componentDidUpdate(prevProps) {
     if (
       this.props.postToEdit === {} ||
