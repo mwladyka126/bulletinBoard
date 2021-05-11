@@ -6,7 +6,7 @@ import clsx from "clsx";
 
 import { connect } from "react-redux";
 import { getOne, fetchOnePostFromAPI } from "../../../redux/postsRedux.js";
-import { getStatus } from "../../../redux/usersRedux.js";
+import { getStatus } from "../../../redux/userSwitcherRedux.js";
 
 import styles from "./Post.module.scss";
 import Card from "@material-ui/core/Card";

@@ -10,7 +10,7 @@ import {
   getLoadingState,
   fetchPublished,
 } from "../../../redux/postsRedux.js";
-import { getStatus } from "../../../redux/usersRedux.js";
+import { getStatus } from "../../../redux/userSwitcherRedux.js";
 
 import styles from "./Homepage.module.scss";
 

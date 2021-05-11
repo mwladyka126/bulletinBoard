@@ -15,7 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ImageUploader from "react-images-upload";
 
 import { connect } from "react-redux";
-import { getStatus } from "../../../redux/usersRedux.js";
+import { getStatus } from "../../../redux/userSwitcherRedux.js";
 import {
   editPostRequest,
   getOne,
@@ -27,26 +27,34 @@ import { NotFound } from "../NotFound/NotFound.js";
 
 class Component extends React.Component {
   state = {
-    post: {
-      _id: this.props.postToEdit._id,
-      author: this.props.postToEdit.author,
-      created: this.props.postToEdit.created,
-      updated: this.props.postToEdit.updated,
-      status: this.props.postToEdit.status,
-      title: this.props.postToEdit.title,
-      text: this.props.postToEdit.text,
-      photo: this.props.postToEdit.photo,
-      price: this.props.postToEdit.price,
-      phone: this.props.postToEdit.phone,
-      location: this.props.postToEdit.location,
-    },
+    post: {},
     error: null,
   };
-  componentDidMount() {
-    this.props.fetchPost();
 
-    //this.setState({ post: { ...this.props.postToEdit } });
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.postToEdit === {} ||
+      this.props.postToEdit._id !== prevProps.postToEdit._id
+    ) {
+      this.props.fetchPost();
+      this.setState({
+        post: {
+          _id: this.props.postToEdit._id,
+          author: this.props.postToEdit.author,
+          created: this.props.postToEdit.created,
+          updated: this.props.postToEdit.updated,
+          status: this.props.postToEdit.status,
+          title: this.props.postToEdit.title,
+          text: this.props.postToEdit.text,
+          photo: this.props.postToEdit.photo,
+          price: this.props.postToEdit.price,
+          phone: this.props.postToEdit.phone,
+          location: this.props.postToEdit.location,
+        },
+      });
+    }
   }
+
   setPhoto = (files) => {
     const { post } = this.state;
     console.log(files[0]);

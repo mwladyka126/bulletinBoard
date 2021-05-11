@@ -9,4 +9,4 @@ const userSchema = new mongoose.Schema({
   isLogged: { type: Boolean, required: true },
 });
 
-module.exports = mongoose.model("User", postSchema);
+module.exports = mongoose.model("User", userSchema);

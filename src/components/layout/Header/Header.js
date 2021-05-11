@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 
 import { connect } from "react-redux";
-import { getStatus } from "../../../redux/usersRedux.js";
+import { getStatus } from "../../../redux/userSwitcherRedux.js";
 
 import styles from "./Header.module.scss";
 

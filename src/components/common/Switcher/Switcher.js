@@ -7,7 +7,7 @@ import Select from "@material-ui/core/Select";
 
 //import styles from "./Switcher.module.scss";
 import { connect } from "react-redux";
-import { getUserStatus } from "../../../redux/usersRedux.js";
+import { getUserStatus } from "../../../redux/userSwitcherRedux.js";
 
 class Component extends React.Component {
   state = {

@@ -15,7 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ImageUploader from "react-images-upload";
 
 import { connect } from "react-redux";
-import { getStatus } from "../../../redux/usersRedux.js";
+import { getStatus } from "../../../redux/userSwitcherRedux.js";
 import { addPostRequest } from "../../../redux/postsRedux.js";
 import styles from "./PostAdd.module.scss";
 import { NotFound } from "../NotFound/NotFound.js";

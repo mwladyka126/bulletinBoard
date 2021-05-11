@@ -7,6 +7,7 @@ const session = require("express-session");
 const passportSetup = require("./config/passport");
 
 const postsRoutes = require("./routes/posts.routes");
+const usersRoutes = require("./routes/users.routes");
 const authRoutes = require("./routes/auth.routes");
 
 const app = express();
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 
 /* API ENDPOINTS */
 app.use("/api", postsRoutes);
+app.use("/api", usersRoutes);
 app.use("/auth", authRoutes);
 
 /* API ERROR PAGES */
