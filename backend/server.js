@@ -12,6 +12,8 @@ const authRoutes = require("./routes/auth.routes");
 
 const app = express();
 
+require("dotenv").config();
+
 /* INIT SESSION MECHANISM */
 app.use(session({ secret: "anything" }));
 
@@ -42,10 +44,13 @@ app.use("*", (req, res) => {
 });
 
 /* MONGOOSE */
-mongoose.connect("mongodb://localhost:27017/bulletinBoard", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  `mongodb+srv://${process.env.mongoApp}:${process.env.mongoPass}@cluster0.w1mbx.mongodb.net/BulletinBoard?retryWrites=true&w=majority`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 const db = mongoose.connection;
 db.once("open", () => {
   console.log("Successfully connected to the database");

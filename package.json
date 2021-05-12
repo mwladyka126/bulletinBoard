@@ -43,6 +43,7 @@
     "axios": "^0.21.1",
     "clsx": "^1.0.4",
     "cors": "^2.8.5",
+    "dotenv": "^9.0.2",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "express": "^4.17.1",
