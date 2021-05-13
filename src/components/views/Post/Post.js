@@ -38,6 +38,32 @@ class Component extends React.Component {
               <div className={styles.photoWrapper}>
                 <img src={post.photo} alt={post.title} />
               </div>
+              <CardActions>
+                <IconButton aria-label="add to favorites">
+                  <FavoriteIcon />
+                </IconButton>
+                <IconButton aria-label="share">
+                  <ShareIcon />
+                </IconButton>
+                {userStatus === true ? (
+                  <div className={styles.linkWrapper}>
+                    <Link
+                      to={`/post/${post._id}/edit`}
+                      variant="subtitle1"
+                      color="secondary"
+                    >
+                      <Fab
+                        size="small"
+                        color="secondary"
+                        aria-label="add"
+                        variant="extended"
+                      >
+                        Edit post
+                      </Fab>
+                    </Link>
+                  </div>
+                ) : null}
+              </CardActions>
             </Grid>
             <Grid item xs={12} sm={5}>
               <Card>
@@ -54,54 +80,14 @@ class Component extends React.Component {
                     {post.text}
                   </Typography>
                 </CardContent>
-                <CardActions>
-                  <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                  </IconButton>
-                  <IconButton aria-label="share">
-                    <ShareIcon />
-                  </IconButton>
-                  {userStatus === true ? (
-                    <div className={styles.linkWrapper}>
-                      <Link
-                        to={`/post/${post._id}/edit`}
-                        variant="subtitle1"
-                        color="secondary"
-                      >
-                        <Fab
-                          size="small"
-                          color="secondary"
-                          aria-label="add"
-                          variant="extended"
-                        >
-                          Edit post
-                        </Fab>
-                      </Link>
-                    </div>
-                  ) : null}
-                  <Fab
-                    className={clsx(styles.fab)}
-                    //onClick={handleExpandClick}
-                    //aria-expanded={expanded}
-                    aria-label="show more"
-                    variant="extended"
-                    size="small"
-                    color="primary"
-                  >
-                    {" "}
-                    More details
-                    <ExpandMoreIcon />
-                  </Fab>
-                </CardActions>
-                <Collapse in={true} timeout="auto" unmountOnExit>
-                  <CardContent>
-                    <Typography paragraph> Status: {post.status}</Typography>
-                    <Typography paragraph> Price: {post.price}</Typography>
-                    <Typography paragraph>Author:{post.author}</Typography>
-                    <Typography paragraph>Phone:{post.phone}</Typography>
-                    <Typography paragraph>Location:{post.location}</Typography>
-                  </CardContent>
-                </Collapse>
+
+                <CardContent>
+                  <Typography paragraph> Status: {post.status}</Typography>
+                  <Typography paragraph> Price: {post.price}</Typography>
+                  <Typography paragraph>Author:{post.author}</Typography>
+                  <Typography paragraph>Phone:{post.phone}</Typography>
+                  <Typography paragraph>Location:{post.location}</Typography>
+                </CardContent>
               </Card>
             </Grid>
           </Grid>
