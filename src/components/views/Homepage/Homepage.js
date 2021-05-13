@@ -26,6 +26,9 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 
+import { Loading } from "../../common/Loading/Loading";
+import { Error } from "../../common/Error/Error";
+
 class Component extends React.Component {
   componentDidMount() {
     const { fetchPublishedPosts } = this.props;
@@ -42,14 +45,13 @@ class Component extends React.Component {
     if (active || !posts.length) {
       return (
         <Paper className={styles.component}>
-          <p>Loading...</p>
+          <Loading />
         </Paper>
       );
     } else if (error) {
       return (
         <Paper className={styles.component}>
-          <p>Error! Details:</p>
-          <pre>{error}</pre>
+          <Error>{error}</Error>
         </Paper>
       );
     } else {
