@@ -18,11 +18,14 @@ router.get("/user/logged", async (req, res) => {
       res.status(404).json({ message: "Not found" });
     } else {
       const userEmail = req.user.emails[0].value;
-      User.countDocuments({ email: userEmail }, async (err, count) => {
+      await User.countDocuments({ email: userEmail }, async (err, count) => {
         if (count > 0) {
-          const loggedUser = User.findOne({ email: userEmail });
-          if (!loggedUser) res.status(404).json({ message: "Not found" });
-          else {
+          const loggedUser = await User.findOne({
+            email: userEmail,
+          });
+          if (!loggedUser) {
+            res.status(404).json({ message: "Not found" });
+          } else {
             loggedUser.isLogged = true;
             loggedUser.save();
             return res.redirect("http://localhost:3000/");
@@ -49,12 +52,19 @@ router.get("/user/logged", async (req, res) => {
 router.get("/logout", async (req, res) => {
   try {
     const isVerified = await req.user;
+    console.log("req.user", req.user);
     if (!isVerified) {
-      res.status(404).json({ message: "Not found" });
+      res
+        .status(404)
+        .json({ message: "user wasn't logged" })
+        .redirect("http://localhost:3000/");
     } else {
       const userEmail = req.user.emails[0].value;
-      const loggedUser = User.findOne({ email: userEmail });
-      if (!loggedUser) res.status(404).json({ message: "Not found" });
+      console.log("mail", userEmail);
+      const loggedUser = await User.findOne({ email: userEmail });
+      console.log("user", loggedUser);
+      if (!loggedUser)
+        res.status(404).json({ message: "User not found in db" });
       else {
         loggedUser.isLogged = false;
         await loggedUser.save();
