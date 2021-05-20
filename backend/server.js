@@ -6,11 +6,48 @@ const passport = require("passport");
 const session = require("express-session");
 const passportSetup = require("./config/passport");
 
+const app = express();
+
+const multer = require("multer");
+const uuid = require("uuid");
+const morgan = require("morgan");
+const pathUploads = "./public/uploads";
+
 const postsRoutes = require("./routes/posts.routes");
 const usersRoutes = require("./routes/users.routes");
 const authRoutes = require("./routes/auth.routes");
 
-const app = express();
+/*upload foto*/
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, pathUploads);
+  },
+  filename: (req, file, cb) => {
+    cb(null, uuid.v4().toString() + "_" + file.name);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/gif" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jfif"
+  ) {
+    cb(null, true);
+  } else {
+    cb("Type file is not access", false);
+  }
+};
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: 1024 * 1024 * 5,
+});
+
+app.use(morgan("dev"));
 
 require("dotenv").config();
 

@@ -38,7 +38,7 @@ class Component extends React.Component {
   setPhoto = (files) => {
     const { post } = this.state;
     console.log(files[0]);
-    if (files) this.setState({ post: { ...post, photo: files[0].name } });
+    if (files) this.setState({ post: { ...post, photo: files[0] } });
     else this.setState({ post: { ...post, photo: null } });
   };
 
@@ -85,8 +85,24 @@ class Component extends React.Component {
       post.created = new Date().toISOString();
       post.updated = post.created;
 
-      addNewPost(post);
-      console.log("post", post);
+      const formData = new FormData();
+      for (let key of [
+        "author",
+        "created",
+        "updated",
+        "status",
+        "title",
+        "text",
+        "price",
+        "phone",
+        "location",
+      ]) {
+        formData.append(key, post[key]);
+      }
+      formData.append("photo", post.photo);
+
+      addNewPost(formData);
+      console.log("post", formData);
 
       alert("Thank you for your add!");
     } else {
