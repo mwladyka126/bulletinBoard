@@ -45,6 +45,23 @@ export const fetchPublished = () => {
   };
 };
 
+export const fetchUserPosts = () => {
+  return (dispatch, getState) => {
+    const { posts } = getState();
+
+    if (posts.data.length === 0 || posts.loading.active === "false") {
+      dispatch(fetchStarted());
+      Axios.get("http://localhost:8000/api/yourposts")
+        .then((res) => {
+          dispatch(fetchSuccess(res.data));
+        })
+        .catch((err) => {
+          dispatch(fetchError(err.message || true));
+        });
+    }
+  };
+};
+
 export const fetchOnePostFromAPI = (_id) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());

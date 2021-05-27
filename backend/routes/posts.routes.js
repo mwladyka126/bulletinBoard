@@ -11,7 +11,7 @@ function escape(html) {
     .replace(/"/g, "")
     .replace(/'/g, "");
 }
-/*router.get("/posts", async (req, res) => {
+router.get("/posts", async (req, res) => {
   try {
     const result = await Post.find({ status: "published" })
       .select("author created updated title photo")
@@ -21,9 +21,9 @@ function escape(html) {
   } catch (err) {
     res.status(500).json(err);
   }
-});*/
+});
 
-router.get("/posts", async (req, res) => {
+router.get("/yourposts", async (req, res) => {
   try {
     const where = { status: "published" };
     if (req.user) {
