@@ -28,7 +28,7 @@ router.get("/user/logged", async (req, res) => {
           } else {
             loggedUser.isLogged = true;
             loggedUser.save();
-            return res.json(loggedUser).redirect("http://localhost:3000/");
+            return res.redirect("/");
           }
         } else {
           const newUser = new User({
@@ -40,9 +40,21 @@ router.get("/user/logged", async (req, res) => {
             isLogged: true,
           });
           await newUser.save();
-          return res.json(newUser).redirect("http://localhost:3000/");
+          return res.redirect("/");
         }
       });
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+router.get("/user/me", async (req, res) => {
+  try {
+    const isVerified = await req.user;
+    if (!isVerified) {
+      res.status(404).json({ message: "Not found" });
+    } else {
+      res.json(req.user);
     }
   } catch (err) {
     res.status(500).json(err);

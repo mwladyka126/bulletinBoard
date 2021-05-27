@@ -5,7 +5,6 @@ export const getOne = ({ posts }) => posts.onePost;
 export const getPostById = ({ posts }, _id) => {
   return posts.data.filter((post) => post._id === _id)[0];
 };
-
 export const getLoadingState = ({ posts }) => posts.loading;
 
 /* action name creator */
@@ -62,11 +61,7 @@ export const addPostRequest = (data) => {
   return (dispatch) => {
     dispatch(fetchStarted());
     console.log("data", data);
-    Axios.post("http://localhost:8000/api/posts/add", data, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    })
+    Axios.post("http://localhost:8000/api/posts/add", data)
       .then((res) => {
         dispatch(addPost(data));
       })

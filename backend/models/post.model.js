@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema({
   status: { type: String, required: true },
   title: { type: String, required: true, minLength: 10, maxLength: 30 },
   text: { type: String, required: true, minLength: 20, maxLength: 100 },
-  photo: { type: Object },
+  photo: { type: String },
   price: { type: Number },
   phone: { type: String },
   location: { type: String },

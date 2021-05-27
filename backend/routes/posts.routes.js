@@ -11,11 +11,29 @@ function escape(html) {
     .replace(/"/g, "")
     .replace(/'/g, "");
 }
-router.get("/posts", async (req, res) => {
+/*router.get("/posts", async (req, res) => {
   try {
     const result = await Post.find({ status: "published" })
       .select("author created updated title photo")
       .sort({ created: -1 });
+    if (!result) res.status(404).json({ post: "Not found" });
+    else res.json(result);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});*/
+
+router.get("/posts", async (req, res) => {
+  try {
+    const where = { status: "published" };
+    if (req.user) {
+      where.author = req.user.emails[0].value;
+    }
+
+    const result = await Post.find(where)
+      .select("author created updated title photo")
+      .sort({ created: -1 });
+    console.log(result);
     if (!result) res.status(404).json({ post: "Not found" });
     else res.json(result);
   } catch (err) {
@@ -61,14 +79,11 @@ router.post("/posts/add", async (req, res) => {
     const acceptedExt = ["gif", "jpg", "png", "jpeg"];
     if (titleMatched.length < title.length)
       throw new Error("Invalid characters in the title...");
-    //  if (textMatched.length < text.length)
-    //  throw new Error("Invalid characters in the title...");
+
     if (location && locationMatched.length < location.length)
       throw new Error("Invalid characters in the location...");
 
     if (!validatedEmail) throw new Error("Wrong email!");
-
-    // if (photo && !acceptedExt.includes(fileExt)) throw new Error("Wrong file");
 
     if (text.length < 20 || title.length < 10)
       throw new Error("The text is too short");
@@ -109,22 +124,7 @@ router.put("/posts/:id/edit", async (req, res) => {
       phone,
       location,
     } = req.body;
-    /*  const pattern = new RegExp(
-      /(<\s*(strong|em)*>(([A-z]|\s)*)<\s*\/\s*(strong|em)>)|(([A-z]|\s|\.)*)/,
-      "g"
-    );
-    const titleMatched = (title.match(pattern) || []).join("");
-    const textMatched = (author.match(pattern) || []).join("");
-    const locationMatched = (location.match(pattern) || []).join("");
-    const fileExt = photo.split(".").slice(-1)[0];
-    const acceptedExt = ["gif", "jpg", "png", "jpeg"];
-    if (titleMatched.length < title.length)
-      throw new Error("Invalid characters in the title...");
-    //  if (textMatched.length < text.length)
-    //  throw new Error("Invalid characters in the title...");
-    if (location && locationMatched.length < location.length)
-      throw new Error("Invalid characters in the location...");
-    // if (photo && !acceptedExt.includes(fileExt)) throw new Error("Wrong file");*/
+
     const emailPattern = new RegExp(
       "^[a-zA-Z0-9][a-zA-Z0-9_.-]+@[a-zA-Z0-9][a-zA-Z0-9_.-]+.{1,3}[a-zA-Z]{2,4}"
     );

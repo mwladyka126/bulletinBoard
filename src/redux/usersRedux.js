@@ -39,7 +39,7 @@ export const fetchUsers = () => {
 export const fetchLogged = () => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-    Axios.get("http://localhost:8000/api/user/logged")
+    Axios.get("http://localhost:8000/api/user/me")
       .then((res) => {
         dispatch(fetchLoggedUser(res.data));
       })
