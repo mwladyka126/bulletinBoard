@@ -62,6 +62,7 @@ export const initialState = {
   },
   users: {
     data: [],
+    loggedUser: {},
   },
   user: {
     active: true,

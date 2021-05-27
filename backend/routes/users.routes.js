@@ -28,7 +28,7 @@ router.get("/user/logged", async (req, res) => {
           } else {
             loggedUser.isLogged = true;
             loggedUser.save();
-            return res.redirect("http://localhost:3000/");
+            return res.json(loggedUser).redirect("http://localhost:3000/");
           }
         } else {
           const newUser = new User({
@@ -40,7 +40,7 @@ router.get("/user/logged", async (req, res) => {
             isLogged: true,
           });
           await newUser.save();
-          return res.redirect("http://localhost:3000/");
+          return res.json(newUser).redirect("http://localhost:3000/");
         }
       });
     }

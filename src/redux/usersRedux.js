@@ -1,6 +1,7 @@
 import Axios from "axios";
 /* selectors */
 export const getAllUsers = ({ users }) => users.data;
+export const getLoggedUser = ({ users }) => users.loggedUser;
 
 /* action name creator */
 const reducerName = "users";
@@ -10,11 +11,16 @@ const createActionName = (name) => `app/${reducerName}/${name}`;
 const FETCH_START = createActionName("FETCH_START");
 const FETCH_SUCCESS = createActionName("FETCH_SUCCESS");
 const FETCH_ERROR = createActionName("FETCH_ERROR");
+const FETCH_LOGGED_USER = createActionName("FETCH_LOGGED_USER");
 
 /* action creators */
 export const fetchStarted = (payload) => ({ payload, type: FETCH_START });
 export const fetchSuccess = (payload) => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = (payload) => ({ payload, type: FETCH_ERROR });
+export const fetchLoggedUser = (payload) => ({
+  payload,
+  type: FETCH_LOGGED_USER,
+});
 
 /* thunk creators */
 export const fetchUsers = () => {
@@ -23,6 +29,19 @@ export const fetchUsers = () => {
     Axios.get("http://localhost:8000/api/users")
       .then((res) => {
         dispatch(fetchSuccess(res.data));
+      })
+      .catch((err) => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
+export const fetchLogged = () => {
+  return (dispatch, getState) => {
+    dispatch(fetchStarted());
+    Axios.get("http://localhost:8000/api/user/logged")
+      .then((res) => {
+        dispatch(fetchLoggedUser(res.data));
       })
       .catch((err) => {
         dispatch(fetchError(err.message || true));
@@ -59,6 +78,16 @@ export const reducer = (statePart = [], action = {}) => {
           active: false,
           error: action.payload,
         },
+      };
+    }
+    case FETCH_LOGGED_USER: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        loggedUser: action.payload,
       };
     }
     default:
