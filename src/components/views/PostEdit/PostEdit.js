@@ -22,6 +22,7 @@ import {
   getOne,
   fetchOnePostFromAPI,
 } from "../../../redux/postsRedux.js";
+import { fetchLogged, getLoggedUser } from "../../../redux/usersRedux.js";
 
 import styles from "./PostEdit.module.scss";
 import { NotFound } from "../NotFound/NotFound.js";
@@ -40,12 +41,15 @@ class Component extends React.Component {
   state = {
     post: {},
     error: null,
+    user: this.props.currentUser,
   };
   componentDidMount() {
-    const { fetchPost, postToEdit } = this.props;
+    const { fetchPost, postToEdit, fetchUser, currentUser } = this.props;
     fetchPost();
+    fetchUser();
     this.setState({
       post: { ...postToEdit },
+      user: currentUser,
     });
   }
   componentDidUpdate(prevProps) {
@@ -121,8 +125,9 @@ class Component extends React.Component {
     }
   };
   render() {
-    const { className, userStatus } = this.props;
+    const { className, userStatus, currentUser } = this.props;
     const { post } = this.state;
+    console.log(currentUser);
     return (
       <ThemeProvider theme={theme}>
         <div className={clsx(className, styles.root)}>
@@ -131,7 +136,9 @@ class Component extends React.Component {
               <Grid item align="center" xs={12} sm={9}>
                 <Paper>
                   <form onSubmit={this.submitForm}>
-                    <Typography variant="h6">Edit your announcement</Typography>
+                    <Typography variant="h6">
+                      {currentUser.userName}Edit your announcement
+                    </Typography>
 
                     <Grid item align="center" xs={12} sm={9}>
                       <TextField
@@ -279,11 +286,13 @@ Component.propTypes = {
 const mapStateToProps = (state, props) => ({
   userStatus: getStatus(state),
   postToEdit: getOne(state),
+  currentUser: getLoggedUser(state),
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
   updatePost: (post) => dispatch(editPostRequest(post)),
   fetchPost: () => dispatch(fetchOnePostFromAPI(props.match.params.id)),
+  fetchUser: () => dispatch(fetchLogged()),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

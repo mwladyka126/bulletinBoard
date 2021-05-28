@@ -87,7 +87,11 @@ export const reducer = (statePart = [], action = {}) => {
           active: false,
           error: false,
         },
-        loggedUser: action.payload,
+        loggedUser: {
+          userName: action.payload.displayName,
+          userEmail: action.payload.emails[0].value,
+          avatar: action.payload.photos[0].value,
+        },
       };
     }
     default:
