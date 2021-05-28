@@ -35,6 +35,14 @@ class Component extends React.Component {
     fetchPublishedPosts();
     console.log("ddhome", posts);
   }
+  componentDidUpdate(prevProps) {
+    const { fetchPublishedPosts, posts } = this.props;
+    if (posts === {} || posts !== prevProps.posts) {
+      fetchPublishedPosts();
+    }
+    console.log("updatepost", posts);
+  }
+
   render() {
     const {
       className,
