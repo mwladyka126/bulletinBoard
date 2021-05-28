@@ -10,7 +10,6 @@ import {
   getLoadingState,
   fetchPublished,
 } from "../../../redux/postsRedux.js";
-import { fetchLoggedUser, getLoggedUser } from "../../../redux/usersRedux.js";
 import { getStatus } from "../../../redux/userSwitcherRedux.js";
 
 import styles from "./Homepage.module.scss";
@@ -42,9 +41,7 @@ class Component extends React.Component {
       posts,
       userStatus,
       loading: { active, error },
-      currentUser,
     } = this.props;
-    console.log(currentUser);
     if (active || !posts.length) {
       return (
         <Paper className={styles.component}>
@@ -167,12 +164,10 @@ const mapStateToProps = (state) => ({
   posts: getAll(state),
   userStatus: getStatus(state),
   loading: getLoadingState(state),
-  currentUser: getLoggedUser(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchPublishedPosts: () => dispatch(fetchPublished()),
-  fetchUser: () => dispatch(fetchLoggedUser()),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

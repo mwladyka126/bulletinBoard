@@ -65,6 +65,6 @@ export const initialState = {
     loggedUser: {},
   },
   user: {
-    active: false,
+    active: true,
   },
 };

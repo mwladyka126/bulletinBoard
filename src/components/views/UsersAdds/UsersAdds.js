@@ -30,26 +30,11 @@ import { Loading } from "../../common/Loading/Loading";
 import { Error } from "../../common/Error/Error";
 
 class Component extends React.Component {
-  state = {
-    posts: {},
-    error: null,
-  };
   componentDidMount() {
-    const { fetchPosts, userPosts } = this.props;
+    const { fetchPosts } = this.props;
     fetchPosts();
-    this.setState({
-      posts: { ...userPosts },
-    });
   }
-  componentDidUpdate(prevProps) {
-    const { fetchPosts, userPosts } = this.props;
-    if (userPosts === {} || userPosts !== prevProps.userPosts) {
-      fetchPosts();
-      this.setState({
-        post: { ...userPosts },
-      });
-    }
-  }
+
   render() {
     const {
       className,
@@ -177,7 +162,7 @@ Component.propTypes = {
   posts: PropTypes.array,
 };
 const mapStateToProps = (state) => ({
-  userPosts: getAll(state),
+  posts: getAll(state),
   userStatus: getStatus(state),
   loading: getLoadingState(state),
 });
