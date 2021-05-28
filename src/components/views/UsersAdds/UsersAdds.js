@@ -31,8 +31,16 @@ import { Error } from "../../common/Error/Error";
 
 class Component extends React.Component {
   componentDidMount() {
-    const { fetchPosts } = this.props;
+    const { fetchPosts, posts } = this.props;
     fetchPosts();
+    console.log("mountusers", posts);
+  }
+  componentDidUpdate(prevProps) {
+    const { fetchPosts, posts } = this.props;
+    if (posts === {} || posts !== prevProps.posts) {
+      fetchPosts();
+    }
+    console.log("updateusers", posts);
   }
 
   render() {

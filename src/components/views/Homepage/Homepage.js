@@ -31,9 +31,9 @@ import { Error } from "../../common/Error/Error";
 
 class Component extends React.Component {
   componentDidMount() {
-    const { fetchPublishedPosts, fetchUser } = this.props;
+    const { fetchPublishedPosts, posts } = this.props;
     fetchPublishedPosts();
-    fetchUser();
+    console.log("ddhome", posts);
   }
   render() {
     const {

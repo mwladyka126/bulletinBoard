@@ -64,7 +64,6 @@ router.get("/user/me", async (req, res) => {
 router.get("/logout", async (req, res) => {
   try {
     const isVerified = await req.user;
-    console.log("req.user", req.user);
     if (!isVerified) {
       res
         .status(404)
