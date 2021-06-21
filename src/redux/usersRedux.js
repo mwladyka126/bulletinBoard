@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { API_URL } from "../config";
 /* selectors */
 export const getAllUsers = ({ users }) => users.data;
 export const getLoggedUser = ({ users }) => users.loggedUser;
@@ -26,7 +27,7 @@ export const fetchLoggedUser = (payload) => ({
 export const fetchUsers = () => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-    Axios.get("http://localhost:8000/api/users")
+    Axios.get(`${API_URL}/users`)
       .then((res) => {
         dispatch(fetchSuccess(res.data));
       })
@@ -39,7 +40,7 @@ export const fetchUsers = () => {
 export const fetchLogged = () => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-    Axios.get("http://localhost:8000/api/user/me")
+    Axios.get(`${API_URL}/user/me`)
       .then((res) => {
         dispatch(fetchLoggedUser(res.data));
       })

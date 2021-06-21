@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { API_URL } from "../config";
 /* selectors */
 export const getAll = ({ posts }) => posts.data;
 export const getOne = ({ posts }) => posts.onePost;
@@ -34,7 +35,7 @@ export const fetchPublished = () => {
 
     if (posts.data.length === 0 || posts.loading.active === "false") {
       dispatch(fetchStarted());
-      Axios.get("http://localhost:8000/api/posts")
+      Axios.get(`${API_URL}/posts`)
         .then((res) => {
           dispatch(fetchSuccess(res.data));
         })
@@ -51,7 +52,7 @@ export const fetchUserPosts = () => {
 
     if (posts.data.length === 0 || posts.loading.active === "false") {
       dispatch(fetchStarted());
-      Axios.get("http://localhost:8000/api/yourposts")
+      Axios.get(`${API_URL}/yourposts`)
         .then((res) => {
           dispatch(fetchSuccess(res.data));
         })
@@ -65,7 +66,7 @@ export const fetchUserPosts = () => {
 export const fetchOnePostFromAPI = (_id) => {
   return (dispatch, getState) => {
     dispatch(fetchStarted());
-    Axios.get(`http://localhost:8000/api/posts/${_id}`)
+    Axios.get(`${API_URL}/posts/${_id}`)
       .then((res) => {
         dispatch(fetchOnePost(res.data));
       })
@@ -78,7 +79,7 @@ export const addPostRequest = (data) => {
   return (dispatch) => {
     dispatch(fetchStarted());
     console.log("data", data);
-    Axios.post("http://localhost:8000/api/posts/add", data)
+    Axios.post(`${API_URL}/posts/add`, data)
       .then((res) => {
         dispatch(addPost(data));
       })
@@ -91,7 +92,7 @@ export const addPostRequest = (data) => {
 export const editPostRequest = (data) => {
   return async (dispatch) => {
     dispatch(fetchStarted());
-    Axios.put(`http://localhost:8000/api/posts/${data._id}/edit`, data)
+    Axios.put(`${API_URL}/posts/${data._id}/edit`, data)
       .then((res) => {
         dispatch(editPost(data));
       })
