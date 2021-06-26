@@ -76,6 +76,7 @@ app.use("/api", (req, res) => {
 
 /* REACT WEBSITE */
 app.use(express.static(path.join(__dirname, "../build")));
+app.use("/public/uploads", express.static(__dirname + "/public/uploads/"));
 app.use("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../build/index.html"));
 });

@@ -79,7 +79,11 @@ export const addPostRequest = (data) => {
   return (dispatch) => {
     dispatch(fetchStarted());
     console.log("data", data);
-    Axios.post(`${API_URL}/posts/add`, data)
+    Axios.post(`${API_URL}/posts/add`, data, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    })
       .then((res) => {
         dispatch(addPost(data));
       })

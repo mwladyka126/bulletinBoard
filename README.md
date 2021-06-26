@@ -16,9 +16,9 @@ to run the app and start API server
 
 to launch the test runner
 
-# Short description of the project:
+## Short description of the project:
 
-# FRONTEND:
+## FRONTEND:
 
 - created with `React`,
 - applies:
@@ -28,9 +28,12 @@ to launch the test runner
   - `Anxios` for sending requests to APi server,
 - test written with `Jest` and `Enzyme`
 
-# BACKEND:
+## BACKEND:
 
 - API server created with `Express` with the main aim to serve static files for the frontend part, communication and operations on the data base,
-- data base created with `MongoDB` and `Mongoose`
+- data base created with `MongoDB` and `Mongoose`,
+  -user authentication with `Google OAuth`
 
+## See the project on heroku:
 
+https://room-for-you.herokuapp.com/
