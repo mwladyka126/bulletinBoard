@@ -87,8 +87,9 @@ const Component = ({
                       color="secondary"
                       aria-label="add"
                       variant="extended"
+                      className={styles.fab}
                     >
-                      Edit post
+                      <span>Edit post</span>
                     </Fab>
                   </Link>
                 </div>
@@ -102,7 +103,13 @@ const Component = ({
 );
 
 Component.propTypes = {
-  children: PropTypes.node,
+  photo: PropTypes.string,
+  title: PropTypes.string,
+  created: PropTypes.string,
+  updated: PropTypes.string,
+  text: PropTypes.string,
+  id: PropTypes.string,
+  userStatus: PropTypes.object,
   className: PropTypes.string,
 };
 
@@ -115,8 +122,4 @@ const mapStateToProps = (state) => ({
 
 const Container = connect(mapStateToProps)(Component);
 
-export {
-  Component as PostBox,
-  // Container as PostBox,
-  Component as PostBoxComponent,
-};
+export { Container as PostBox, Component as PostBoxComponent };

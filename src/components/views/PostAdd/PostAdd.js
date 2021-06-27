@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import clsx from "clsx";
 
 import Grid from "@material-ui/core/Grid";
@@ -100,7 +99,7 @@ class Component extends React.Component {
         {userStatus === true ? (
           <Grid container align="center" justify="center">
             <Grid item align="center" xs={12} sm={9}>
-              <Paper>
+              <Paper className={styles.form}>
                 <form onSubmit={this.submitForm}>
                   <Typography variant="h6">
                     Fill the fields to add an announcement

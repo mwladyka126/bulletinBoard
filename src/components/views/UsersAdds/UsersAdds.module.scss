@@ -1,6 +1,7 @@
 @import "../../../styles/settings.scss";
 
 .root {
+  color: $color-text-dark;
   .buttonAdd {
     display: flex;
     padding-bottom: $base-size;
@@ -12,5 +13,8 @@
         text-decoration: none;
       }
     }
+  }
+  .title {
+    text-align: center;
   }
 }

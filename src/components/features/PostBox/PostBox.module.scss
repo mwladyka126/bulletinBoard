@@ -25,6 +25,7 @@
     }
     .linkWrapper {
       display: flex;
+      flex-wrap: wrap;
       a {
         text-decoration: none;
         margin: 0 auto;

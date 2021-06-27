@@ -11,19 +11,11 @@ import {
   fetchUserPosts,
 } from "../../../redux/postsRedux.js";
 import { getStatus } from "../../../redux/userSwitcherRedux.js";
+import { fetchLogged, getLoggedUser } from "../../../redux/usersRedux.js";
 
 import styles from "./UsersAdds.module.scss";
 
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 
 import { Loading } from "../../common/Loading/Loading";
@@ -31,9 +23,19 @@ import { Error } from "../../common/Error/Error";
 import { PostBox } from "../../features/PostBox/PostBox";
 
 class Component extends React.Component {
+  state = {
+    post: [],
+    error: null,
+    user: this.props.currentUser,
+  };
   componentDidMount() {
-    const { fetchPosts, posts } = this.props;
+    const { fetchPosts, posts, currentUser, fetchUser } = this.props;
     fetchPosts();
+    fetchUser();
+    this.setState({
+      post: [...posts],
+      user: currentUser,
+    });
   }
   componentDidUpdate(prevProps) {
     const { fetchPosts, posts } = this.props;
@@ -49,6 +51,7 @@ class Component extends React.Component {
       userStatus,
       loading: { active, error },
     } = this.props;
+    const { user } = this.state;
 
     if (active || !posts.length) {
       return (
@@ -79,6 +82,7 @@ class Component extends React.Component {
               </Link>
             </div>
           ) : null}
+          <h2 className={styles.title}>{user.userName} this are your adds:</h2>
           {posts.map((post) => (
             <PostBox
               photo={post.photo}
@@ -105,10 +109,12 @@ const mapStateToProps = (state) => ({
   posts: getAll(state),
   userStatus: getStatus(state),
   loading: getLoadingState(state),
+  currentUser: getLoggedUser(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchPosts: () => dispatch(fetchUserPosts()),
+  fetchUser: () => dispatch(fetchLogged()),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

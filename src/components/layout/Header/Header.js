@@ -44,7 +44,7 @@ class Component extends React.Component {
                 <>
                   <Typography variant="h6">
                     <Link to={"/youradds"} className={styles.link}>
-                      LIST OF YOURS ADDS
+                      SEE YOUR ADDS
                     </Link>
                   </Typography>
                   <Button
