@@ -28,19 +28,18 @@ import Fab from "@material-ui/core/Fab";
 
 import { Loading } from "../../common/Loading/Loading";
 import { Error } from "../../common/Error/Error";
+import { PostBox } from "../../features/PostBox/PostBox";
 
 class Component extends React.Component {
   componentDidMount() {
     const { fetchPublishedPosts, posts } = this.props;
     fetchPublishedPosts();
-    console.log("ddhome", posts);
   }
   componentDidUpdate(prevProps) {
     const { fetchPublishedPosts, posts } = this.props;
     if (posts === {} || posts !== prevProps.posts) {
       fetchPublishedPosts();
     }
-    console.log("updatepost", posts);
   }
 
   render() {
@@ -80,81 +79,15 @@ class Component extends React.Component {
             </div>
           ) : null}
           {posts.map((post) => (
-            <Paper key={post._id} className={styles.component} elevation={9}>
-              <Grid
-                container
-                spacing={3}
-                alignContent="center"
-                justify="center"
-              >
-                <Grid item xs={12} sm={5}>
-                  <div className={styles.photoWrapper}>
-                    <img src={post.photo} alt={post.title} />
-                  </div>
-                </Grid>
-                <Grid item xs={12} sm={5}>
-                  <Card>
-                    <CardHeader
-                      title={post.title}
-                      subheader={`Publication date: ${post.created}, last update: ${post.updated}`}
-                    />
-                    <CardContent>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                        style={{ wordWrap: "break-word" }}
-                      >
-                        {post.text}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
-                      </IconButton>
-                      <IconButton aria-label="share">
-                        <ShareIcon />
-                      </IconButton>
-                      <div className={styles.linkWrapper}>
-                        <Link
-                          to={`/post/${post._id}/`}
-                          variant="subtitle1"
-                          color="secondary"
-                        >
-                          <Fab
-                            variant="extended"
-                            size="small"
-                            color="primary"
-                            className={styles.fab}
-                          >
-                            More details
-                          </Fab>
-                        </Link>
-                      </div>
-
-                      {userStatus === true ? (
-                        <div className={styles.linkWrapper}>
-                          <Link
-                            to={`/post/${post._id}/edit`}
-                            variant="subtitle1"
-                            color="secondary"
-                          >
-                            <Fab
-                              size="small"
-                              color="secondary"
-                              aria-label="add"
-                              variant="extended"
-                            >
-                              Edit post
-                            </Fab>
-                          </Link>
-                        </div>
-                      ) : null}
-                    </CardActions>
-                  </Card>
-                </Grid>
-              </Grid>
-            </Paper>
+            <PostBox
+              photo={post.photo}
+              title={post.title}
+              created={post.created}
+              updated={post.updated}
+              text={post.text}
+              id={post._id}
+              userStatus={userStatus}
+            />
           ))}
         </div>
       );

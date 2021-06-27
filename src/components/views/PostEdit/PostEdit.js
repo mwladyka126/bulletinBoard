@@ -137,7 +137,8 @@ class Component extends React.Component {
                 <Paper>
                   <form onSubmit={this.submitForm}>
                     <Typography variant="h6">
-                      {currentUser.userName}Edit your announcement
+                      <p>{currentUser.userName}</p>
+                      <p>Edit your announcement</p>
                     </Typography>
 
                     <Grid item align="center" xs={12} sm={9}>

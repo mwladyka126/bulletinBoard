@@ -36,7 +36,7 @@ class Component extends React.Component {
               <div className={styles.photoWrapper}>
                 <img src={post.photo} alt={post.title} />
               </div>
-              <CardActions>
+              <CardActions className={styles.actions}>
                 <IconButton aria-label="add to favorites">
                   <FavoriteIcon />
                 </IconButton>
@@ -63,28 +63,44 @@ class Component extends React.Component {
                 ) : null}
               </CardActions>
             </Grid>
-            <Grid item xs={12} sm={5}>
-              <Card>
+            <Grid item xs={12} sm={7}>
+              <Card className={styles.card}>
                 <CardHeader
                   title={post.title}
-                  subheader={`Publication date: ${post.created}, last update: ${post.updated}`}
+                  className={styles.card__header}
+                  subheader={`Publication date: ${post.created},last update: ${post.updated}`}
                 />
-                <CardContent>
+                <CardContent className={styles.card__content}>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     component="p"
+                    className={styles.text}
                   >
                     {post.text}
                   </Typography>
-                </CardContent>
-
-                <CardContent>
-                  <Typography paragraph> Status: {post.status}</Typography>
-                  <Typography paragraph> Price: {post.price}</Typography>
-                  <Typography paragraph>Author:{post.author}</Typography>
-                  <Typography paragraph>Phone:{post.phone}</Typography>
-                  <Typography paragraph>Location:{post.location}</Typography>
+                  <Typography paragraph>
+                    {" "}
+                    <b>Status: </b>
+                    {post.status}
+                  </Typography>
+                  <Typography paragraph>
+                    {" "}
+                    <b>Price: </b>
+                    {post.price} EUR
+                  </Typography>
+                  <Typography paragraph>
+                    <b>Author: </b>
+                    {post.author}
+                  </Typography>
+                  <Typography paragraph>
+                    <b>Phone: </b>
+                    {post.phone}
+                  </Typography>
+                  <Typography paragraph>
+                    <b>Location: </b>
+                    {post.location}
+                  </Typography>
                 </CardContent>
               </Card>
             </Grid>

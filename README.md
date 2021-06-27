@@ -32,7 +32,7 @@ to launch the test runner
 
 - API server created with `Express` with the main aim to serve static files for the frontend part, communication and operations on the data base,
 - data base created with `MongoDB` and `Mongoose`,
-  -user authentication with `Google OAuth`
+- user authentication with `Google OAuth`
 
 ## See the project on heroku:
 

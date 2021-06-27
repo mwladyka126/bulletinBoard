@@ -14,7 +14,7 @@ function escape(html) {
 router.get("/posts", async (req, res) => {
   try {
     const result = await Post.find({ status: "published" })
-      .select("author created updated title photo")
+      .select("author created updated title photo text")
       .sort({ created: -1 });
     if (!result) res.status(404).json({ post: "Not found" });
     else res.json(result);
@@ -31,7 +31,7 @@ router.get("/yourposts", async (req, res) => {
     }
 
     const result = await Post.find(where)
-      .select("author created updated title photo")
+      .select("author created updated title photo text")
       .sort({ created: -1 });
     console.log(result);
     if (!result) res.status(404).json({ post: "Not found" });
