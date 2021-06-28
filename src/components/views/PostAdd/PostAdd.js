@@ -84,7 +84,20 @@ class Component extends React.Component {
       post.created = new Date().toISOString();
       post.updated = post.created;
 
-      addNewPost(post);
+      const formData = new FormData();
+      formData.append("author", post.author);
+      formData.append("created", post.created);
+      formData.append("updated", post.updated);
+      formData.append("status", post.status);
+      formData.append("title", post.title);
+      formData.append("text", post.text);
+      formData.append("price", post.price);
+      formData.append("phone", post.phone);
+      formData.append("location", post.location);
+      formData.append("photo", post.photo);
+
+      addNewPost(formData);
+      console.log(formData);
 
       alert("Thank you for your add!");
     } else {
