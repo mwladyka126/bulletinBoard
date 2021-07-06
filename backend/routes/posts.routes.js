@@ -1,5 +1,39 @@
 const express = require("express");
 const router = express.Router();
+//const upload = require("./../config/upload");
+const multer = require("multer");
+const uuid = require("uuid");
+const pathUploads = "./public/uploads";
+
+/*upload foto*/
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, pathUploads);
+  },
+  filename: (req, file, cb) => {
+    cb(null, uuid.v4().toString() + "_" + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/gif" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jfif"
+  ) {
+    cb(null, true);
+  } else {
+    cb("Type file is not access", false);
+  }
+};
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: 1024 * 1024 * 5,
+});
 
 const Post = require("../models/post.model");
 
@@ -50,7 +84,7 @@ router.get("/posts/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-router.post("/posts/add", async (req, res) => {
+router.post("/posts/add", upload.single("photo"), async (req, res) => {
   try {
     const {
       author,
@@ -59,11 +93,11 @@ router.post("/posts/add", async (req, res) => {
       status,
       title,
       text,
-      photo,
       price,
       phone,
       location,
     } = req.body;
+    const { filename, originalname } = req.file;
     const pattern = new RegExp(
       /(<\s*(strong|em)*>(([A-z]|\s)*)<\s*\/\s*(strong|em)>)|(([A-z]|\s|\.)*)/,
       "g"
@@ -87,7 +121,7 @@ router.post("/posts/add", async (req, res) => {
 
     if (text.length < 20 || title.length < 10)
       throw new Error("The text is too short");
-    if (title && text && author && status) {
+    if ((title && text && author && status, filename)) {
       const newPost = new Post({
         author: author,
         created: created,
@@ -95,7 +129,7 @@ router.post("/posts/add", async (req, res) => {
         status: status,
         title: escape(title),
         text: escape(text),
-        photo: photo,
+        photo: filename,
         price: price,
         phone: phone,
         location: escape(location),

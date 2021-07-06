@@ -8,7 +8,7 @@ import styles from "./Error.module.scss";
 const Component = ({ className, children }) => (
   <div className={clsx(className, styles.root)}>
     <div className={styles.error}>
-      <h2>We are sorry.. someing went wrong..</h2>
+      <h2>We are sorry.. something went wrong..</h2>
       <p>{children}</p>
     </div>
   </div>

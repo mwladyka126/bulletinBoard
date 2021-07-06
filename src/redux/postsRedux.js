@@ -81,7 +81,7 @@ export const addPostRequest = (data) => {
     console.log("data", data);
     Axios.post(`${API_URL}/posts/add`, data, {
       headers: {
-        "content-type": "multipart/form-data",
+        "Content-Type": "multipart/form-data",
       },
     })
       .then((res) => {

@@ -114,9 +114,8 @@ class Component extends React.Component {
     }
   };
   render() {
-    const { className, userStatus, currentUser } = this.props;
+    const { className, userStatus } = this.props;
     const { post, user } = this.state;
-    console.log(currentUser);
     return (
       <div className={clsx(className, styles.root)}>
         {userStatus === true ? (
