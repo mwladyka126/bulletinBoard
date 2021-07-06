@@ -25,7 +25,7 @@ to launch the test runner
   - `React-Router` to move between subpages,
   - `Redux` to manage the state of the app,
   - `Redux-Thunk` for the communication with the API server,
-  - `Anxios` for sending requests to APi server,
+  - `Axios` for sending requests to APi server,
 - test written with `Jest` and `Enzyme`
 
 ## BACKEND:
