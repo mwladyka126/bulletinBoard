@@ -55,7 +55,7 @@ class Component extends React.Component {
     const { post } = this.state;
     console.log(files[0]);
 
-    if (files) this.setState({ post: { ...post, photo: files[0].name } });
+    if (files) this.setState({ post: { ...post, photo: files[0] } });
     else this.setState({ post: { ...post, photo: null } });
   };
 
@@ -90,8 +90,28 @@ class Component extends React.Component {
     if (!error) {
       post.updated = new Date().toISOString();
 
-      updatePost(post);
+      const formData = new FormData();
+
       console.log(post);
+
+      for (let key of [
+        "_id",
+        "author",
+        "created",
+        "updated",
+        "status",
+        "title",
+        "text",
+        "price",
+        "phone",
+        "location",
+        "photo",
+      ]) {
+        formData.append(key, post[key]);
+      }
+
+      updatePost(formData);
+      console.log("editedPostdata", formData);
 
       this.setState({
         post: {

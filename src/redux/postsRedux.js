@@ -94,9 +94,14 @@ export const addPostRequest = (data) => {
 };
 
 export const editPostRequest = (data) => {
+  console.log(data);
   return async (dispatch) => {
     dispatch(fetchStarted());
-    Axios.put(`${API_URL}/posts/${data._id}/edit`, data)
+    Axios.put(`${API_URL}/posts/${data._id}/edit`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
       .then((res) => {
         dispatch(editPost(data));
       })

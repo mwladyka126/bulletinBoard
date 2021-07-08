@@ -28,6 +28,7 @@ class Component extends React.Component {
   }
   render() {
     const { className, post, userStatus } = this.props;
+    console.log(post.photo);
     return (
       <div className={clsx(className, styles.root)}>
         <Paper className={styles.component} elevation={9}>

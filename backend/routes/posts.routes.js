@@ -97,7 +97,10 @@ router.post("/posts/add", upload.single("photo"), async (req, res) => {
       phone,
       location,
     } = req.body;
-    const { filename, originalname } = req.file;
+    const { filename } = req.file;
+
+    const photoSrc = "uploads/" + filename;
+    console.log(req.file);
     const pattern = new RegExp(
       /(<\s*(strong|em)*>(([A-z]|\s)*)<\s*\/\s*(strong|em)>)|(([A-z]|\s|\.)*)/,
       "g"
@@ -109,8 +112,7 @@ router.post("/posts/add", upload.single("photo"), async (req, res) => {
       "^[a-zA-Z0-9][a-zA-Z0-9_.-]+@[a-zA-Z0-9][a-zA-Z0-9_.-]+.{1,3}[a-zA-Z]{2,4}"
     );
     const validatedEmail = emailPattern.test(author);
-    const fileExt = photo.split(".").slice(-1)[0];
-    const acceptedExt = ["gif", "jpg", "png", "jpeg"];
+
     if (titleMatched.length < title.length)
       throw new Error("Invalid characters in the title...");
 
@@ -129,7 +131,7 @@ router.post("/posts/add", upload.single("photo"), async (req, res) => {
         status: status,
         title: escape(title),
         text: escape(text),
-        photo: filename,
+        photo: photoSrc,
         price: price,
         phone: phone,
         location: escape(location),
@@ -140,6 +142,7 @@ router.post("/posts/add", upload.single("photo"), async (req, res) => {
       throw new Error("Wrong input!");
     }
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -153,11 +156,14 @@ router.put("/posts/:id/edit", async (req, res) => {
       status,
       title,
       text,
-      photo,
       price,
       phone,
       location,
     } = req.body;
+    const { filename } = req.file;
+    console.log(req);
+
+    const photoSrc = "uploads/" + filename;
 
     const emailPattern = new RegExp(
       "^[a-zA-Z0-9][a-zA-Z0-9_.-]+@[a-zA-Z0-9][a-zA-Z0-9_.-]+.{1,3}[a-zA-Z]{2,4}"
@@ -180,7 +186,7 @@ router.put("/posts/:id/edit", async (req, res) => {
               status: status,
               title: escape(title),
               text: escape(text),
-              photo: photo,
+              photo: photoSrc,
               price: price,
               phone: phone,
               location: escape(location),
@@ -193,6 +199,7 @@ router.put("/posts/:id/edit", async (req, res) => {
       }
     } else res.status(404).json({ message: "Not found..." });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: err });
   }
 });
