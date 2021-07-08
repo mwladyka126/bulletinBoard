@@ -1,40 +1,6 @@
 const express = require("express");
 const router = express.Router();
-//const upload = require("./../config/upload");
-const multer = require("multer");
-const uuid = require("uuid");
-const pathUploads = "./public/uploads";
-
-/*upload foto*/
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, pathUploads);
-  },
-  filename: (req, file, cb) => {
-    cb(null, uuid.v4().toString() + "_" + file.originalname);
-  },
-});
-
-const fileFilter = (req, file, cb) => {
-  if (
-    file.mimetype === "image/jpeg" ||
-    file.mimetype === "image/png" ||
-    file.mimetype === "image/gif" ||
-    file.mimetype === "image/jpg" ||
-    file.mimetype === "image/jfif"
-  ) {
-    cb(null, true);
-  } else {
-    cb("Type file is not access", false);
-  }
-};
-
-const upload = multer({
-  storage,
-  fileFilter,
-  limits: 1024 * 1024 * 5,
-});
-
+const upload = require("./../config/upload");
 const Post = require("../models/post.model");
 
 function escape(html) {
@@ -147,7 +113,7 @@ router.post("/posts/add", upload.single("photo"), async (req, res) => {
   }
 });
 
-router.put("/posts/:id/edit", async (req, res) => {
+router.put("/posts/:id/edit", upload.single("photo"), async (req, res) => {
   try {
     const {
       author,
@@ -159,11 +125,16 @@ router.put("/posts/:id/edit", async (req, res) => {
       price,
       phone,
       location,
+      photo,
     } = req.body;
-    const { filename } = req.file;
-    console.log(req);
 
-    const photoSrc = "uploads/" + filename;
+    let photoSrc = photo;
+    if (req.file) {
+      const { filename } = req.file;
+      photoSrc = "uploads/" + filename;
+    } else {
+      photoSrc = photo;
+    }
 
     const emailPattern = new RegExp(
       "^[a-zA-Z0-9][a-zA-Z0-9_.-]+@[a-zA-Z0-9][a-zA-Z0-9_.-]+.{1,3}[a-zA-Z]{2,4}"

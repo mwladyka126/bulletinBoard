@@ -95,7 +95,6 @@ class Component extends React.Component {
       console.log(post);
 
       for (let key of [
-        "_id",
         "author",
         "created",
         "updated",
@@ -110,7 +109,7 @@ class Component extends React.Component {
         formData.append(key, post[key]);
       }
 
-      updatePost(formData);
+      updatePost(formData, post._id);
       console.log("editedPostdata", formData);
 
       this.setState({
@@ -284,7 +283,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-  updatePost: (post) => dispatch(editPostRequest(post)),
+  updatePost: (post) => dispatch(editPostRequest(post, props.match.params.id)),
   fetchPost: () => dispatch(fetchOnePostFromAPI(props.match.params.id)),
   fetchUser: () => dispatch(fetchLogged()),
 });
