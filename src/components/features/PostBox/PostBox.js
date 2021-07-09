@@ -33,12 +33,12 @@ const Component = ({
   <div className={clsx(className, styles.root)}>
     <Paper key={id} className={styles.component} elevation={9}>
       <Grid container spacing={3} alignContent="center" justify="center">
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12} md={6}>
           <div className={styles.photoWrapper}>
             <img src={photo} alt={title} />
           </div>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12} md={6}>
           <Card className={styles.card}>
             <CardHeader
               title={title}

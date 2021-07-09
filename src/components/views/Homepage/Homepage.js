@@ -40,7 +40,7 @@ class Component extends React.Component {
       userStatus,
       loading: { active, error },
     } = this.props;
-    console.log(posts);
+
     if (active || !posts.length) {
       return (
         <Paper className={styles.component}>
