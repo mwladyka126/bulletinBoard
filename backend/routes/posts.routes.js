@@ -63,10 +63,14 @@ router.post("/posts/add", upload.single("photo"), async (req, res) => {
       phone,
       location,
     } = req.body;
-    const { filename } = req.file;
 
-    const photoSrc = "uploads/" + filename;
-    console.log(req.file);
+    let photoSrc = "";
+    if (req.file) {
+      const { filename } = req.file;
+      photoSrc = "uploads/" + filename;
+    } else {
+      photoSrc = "";
+    }
     const pattern = new RegExp(
       /(<\s*(strong|em)*>(([A-z]|\s)*)<\s*\/\s*(strong|em)>)|(([A-z]|\s|\.)*)/,
       "g"
@@ -89,7 +93,7 @@ router.post("/posts/add", upload.single("photo"), async (req, res) => {
 
     if (text.length < 20 || title.length < 10)
       throw new Error("The text is too short");
-    if ((title && text && author && status, filename)) {
+    if (title && text && author && status) {
       const newPost = new Post({
         author: author,
         created: created,
