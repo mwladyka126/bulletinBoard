@@ -290,8 +290,4 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-export {
-  //Component as PostEdit,
-  Container as PostEdit,
-  Component as PostEditComponent,
-};
+export { Container as PostEdit, Component as PostEditComponent };
