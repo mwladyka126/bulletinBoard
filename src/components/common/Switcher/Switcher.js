@@ -55,7 +55,6 @@ const mapDispatchToProps = (dispatch) => ({
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  //Component as Switcher,
   Container as Switcher,
   Component as SwitcherComponent,
 };

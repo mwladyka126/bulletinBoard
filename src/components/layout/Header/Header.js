@@ -95,7 +95,6 @@ const mapDispatchToProps = (dispatch) => ({
 const ContainerH = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  //Component as Header,
   ContainerH as Header,
   Component as HeaderComponent,
 };

@@ -120,7 +120,6 @@ const mapDispatchToProps = (dispatch) => ({
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  //Component as UsersAdds,
   Container as UsersAdds,
   Component as UsersAddsComponent,
 };
