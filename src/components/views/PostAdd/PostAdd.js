@@ -105,6 +105,7 @@ class Component extends React.Component {
       console.log(formData);
 
       alert("Thank you for your add!");
+      window.location = "/";
     } else {
       alert("Please correct errors before submitting your add!");
     }

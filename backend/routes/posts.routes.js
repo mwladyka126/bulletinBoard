@@ -67,7 +67,7 @@ router.post("/posts/add", upload.single("photo"), async (req, res) => {
     let photoSrc;
     if (req.file) {
       const { filename } = req.file;
-      photoSrc = "uploads/" + filename;
+      photoSrc = "/uploads/" + filename;
     } else {
       photoSrc = "";
     }
@@ -135,7 +135,7 @@ router.put("/posts/:id/edit", upload.single("photo"), async (req, res) => {
     let photoSrc;
     if (req.file) {
       const { filename } = req.file;
-      photoSrc = "uploads/" + filename;
+      photoSrc = "/uploads/" + filename;
     } else {
       photoSrc = photo;
     }

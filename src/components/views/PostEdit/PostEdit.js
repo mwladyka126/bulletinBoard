@@ -53,7 +53,6 @@ class Component extends React.Component {
 
   setPhoto = (files) => {
     const { post } = this.state;
-    console.log(files[0]);
 
     if (files) this.setState({ post: { ...post, photo: files[0] } });
     else this.setState({ post: { ...post, photo: null } });
@@ -110,7 +109,6 @@ class Component extends React.Component {
       }
 
       updatePost(formData, post._id);
-      console.log("editedPostdata", formData);
 
       this.setState({
         post: {
@@ -128,6 +126,7 @@ class Component extends React.Component {
         },
       });
       alert("Your changes have been saved!");
+      window.location = `/post/${post._id}`;
     } else {
       alert("Please correct errors before submitting changes!");
     }
