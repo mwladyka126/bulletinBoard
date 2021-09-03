@@ -78,7 +78,7 @@ export const fetchOnePostFromAPI = (_id) => {
 export const addPostRequest = (data) => {
   return (dispatch) => {
     dispatch(fetchStarted());
-    console.log("data", data);
+
     Axios.post(`${API_URL}/posts/add`, data, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -94,7 +94,6 @@ export const addPostRequest = (data) => {
 };
 
 export const editPostRequest = (data, id) => {
-  console.log(data);
   return async (dispatch) => {
     dispatch(fetchStarted());
     Axios.put(`${API_URL}/posts/${id}/edit`, data, {
@@ -143,7 +142,6 @@ export const reducer = (statePart = [], action = {}) => {
       };
     }
     case ADD_POST: {
-      console.log("action.payload", action.payload);
       return {
         ...statePart,
         data: [...statePart.data, action.payload],

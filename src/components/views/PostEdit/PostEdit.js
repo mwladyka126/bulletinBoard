@@ -91,8 +91,6 @@ class Component extends React.Component {
 
       const formData = new FormData();
 
-      console.log(post);
-
       for (let key of [
         "author",
         "created",
@@ -108,7 +106,7 @@ class Component extends React.Component {
         formData.append(key, post[key]);
       }
 
-      updatePost(formData, post._id);
+      updatePost(formData);
 
       this.setState({
         post: {

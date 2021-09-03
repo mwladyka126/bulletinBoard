@@ -36,7 +36,6 @@ class Component extends React.Component {
   };
   setPhoto = (files) => {
     const { post } = this.state;
-    console.log(files[0]);
     if (files) this.setState({ post: { ...post, photo: files[0] } });
     else this.setState({ post: { ...post, photo: null } });
   };
@@ -102,7 +101,6 @@ class Component extends React.Component {
       }
 
       addNewPost(formData);
-      console.log(formData);
 
       alert("Thank you for your add!");
       window.location = "/";
