@@ -1,4 +1,4 @@
-# BULLETIN BOARD
+# BULLETIN BOARD - ROOM FOR YOU
 
 ### This is a full-stack application for apartments adds
 
